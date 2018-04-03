@@ -22,7 +22,6 @@ FMeX introduce Graph method : This permits to control precisely the rendering se
 FMeX, with its single ProxyControl and Graph component, open a door on a "masterisable" rendering process. (see Particle demo)
 
 ## Main features
-
 - Fully FMX compatible (Entry point : TFMeXProxy, which is FMX TControl3D)
 - Introduces TeCustomMesh, with "MergeFrom" method, for merging FMeX Mesh together into on and single Mesh. (Draw Call optimization)
 - Show techniques to achieve good performance within FMX, with merging Ticks, and animation
@@ -33,3 +32,14 @@ FMeX, with its single ProxyControl and Graph component, open a door on a "master
 - [Coming] : Rod and pipe 3d Mesh
 - [Coming] : [Angus Johnson's](http://www.angusj.com) clipper, for base 2d extruder.
 
+## Exemple
+
+### Merge Mesh
+As a TeCustom.MergeFrom(...) capabilities, see Stree Cube demo. With a less than a middle class usual SoHo desktop PC computer, thousannd of cube limits could be reached. It could be a good base for a Cub Voxel Engine. Note that is is a raw rendering, there are no optimization at all. And it need it. :)
+
+![Alt text](/img/StressCubeDemo.png?raw=true "MergeFrom API in action")
+
+### Merge Mesh in a real case
+this example iplement a 2d particle rendering : Logic side is on CPU, and rendering side preparer all Particles in large Merged Mesh, which is manipulated runtime. (see FMeX.Particles2D.pas)
+
+![Alt text](/img/ParticleDemo.png?raw=true "Particlein action")
