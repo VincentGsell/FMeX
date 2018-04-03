@@ -1,15 +1,18 @@
 # FMeX
 
-FMeX (aka Delphi FMX Extended) is a collection of class which aimeto leverage performance and usability of 3D FMX library.
+FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage performance and usability of 3D FMX library.
 
 ## Goal and target 
 
-3D FMX is a collection of native 3d Control component for Delphi. This lib is mainly targeting GUI : 3D control hav an hierarchic organisation and control rendeing pipeline is form centric. 
+3D FMX is a collection of native 3d Control component for Delphi. This lib is mainly targeting GUI : 3D control have an hierarchic organisation and control rendeing pipeline is form-centric. 
 
-FMeX introdude a ProxyCompononent, which is a stadart FMX 3D Control. As Child, it accepts only FMeX components.
-This components brendering behavirour in conduct throught a graph, which rules the global rendering sequence.
+FMeX introdude a Proxy Compononent, which is a standart FMX 3D Control. As Child, it accepts only FMeX components.
+This components rendering behaviour is driving by a graph, which rules the global rendering sequence.
 
-As a result, FMeX introduction into a 3D FMX app could leverage somme usual caveat such as
+As a result, 
+- common task are more easey to control and to implement.
+- FMeX introduction into a 3D FMX app could leverage somme usual caveat such as : 
+
 ### Rendering performance
 FMeX introduce Mesh Merging in order to build a global mesh, which will demand only one (1) draw call to render
 The speed up a lot the rendering system of FMX ! (see demo)
