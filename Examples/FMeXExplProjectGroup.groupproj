@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{1791FEC7-9D64-48E8-B363-141B8344B72F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Particles\FMeXParticlesExpl.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="StressCube\FMeXCubeExpl.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FMeXParticlesExpl">
+        <MSBuild Projects="Particles\FMeXParticlesExpl.dproj"/>
+    </Target>
+    <Target Name="FMeXParticlesExpl:Clean">
+        <MSBuild Projects="Particles\FMeXParticlesExpl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMeXParticlesExpl:Make">
+        <MSBuild Projects="Particles\FMeXParticlesExpl.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FMeXCubeExpl">
+        <MSBuild Projects="StressCube\FMeXCubeExpl.dproj"/>
+    </Target>
+    <Target Name="FMeXCubeExpl:Clean">
+        <MSBuild Projects="StressCube\FMeXCubeExpl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMeXCubeExpl:Make">
+        <MSBuild Projects="StressCube\FMeXCubeExpl.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

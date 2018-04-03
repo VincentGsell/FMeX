@@ -1,0 +1,108 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Camera = Camera1
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 983
+  UsingDesignCamera = False
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = Form3DCreate
+  OnMouseDown = Form3DMouseDown
+  OnMouseMove = Form3DMouseMove
+  OnMouseWheel = Form3DMouseWheel
+  OnRender = Form3DRender
+  DesignerMasterStyle = 0
+  object Layer3D1: TLayer3D
+    Height = 78.000000000000000000
+    Position.X = 421.000000000000000000
+    Position.Y = 46.000000000000000000
+    Projection = Screen
+    Resolution = 50
+    StyleLookup = 'backgroundstyle'
+    Width = 830.000000000000000000
+    object Label1: TLabel
+      AutoSize = True
+      Position.X = 16.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 352.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      Text = 
+        'The demo'#39's aim is to show how to use Mesh merge api to optimize ' +
+        'the rendering. If you merge many controls in one, you draw them ' +
+        'in only one draw call.'
+    end
+    object Button1: TButton
+      Position.X = 384.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Add Cubes'
+      OnClick = Button1Click
+    end
+    object Label2: TLabel
+      AutoSize = True
+      Position.X = 384.000000000000000000
+      Position.Y = 56.000000000000000000
+      Size.Width = 137.000000000000000000
+      Size.Height = 16.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Label2'
+    end
+    object Button2: TButton
+      Default = True
+      Enabled = False
+      Position.X = 512.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 129.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Add Cubes'
+      OnClick = Button2Click
+    end
+  end
+  object Light1: TLight
+    Color = claSnow
+    LightType = Point
+    SpotCutOff = 360.000000000000000000
+    Position.Z = -30.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+  object Dummy1: TDummy
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+    object Camera1: TCamera
+      AngleOfView = 45.000000000000000000
+      Position.Z = -5.000000000000000000
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+    end
+  end
+  object LightMaterialSource1: TLightMaterialSource
+    Diffuse = claWhite
+    Ambient = xFF202020
+    Emissive = claNull
+    Specular = xFF606060
+    Shininess = 30
+    Left = 304
+    Top = 224
+  end
+  object Light2: TLight
+    Color = claSnow
+    LightType = Point
+    SpotCutOff = 360.000000000000000000
+    Position.X = -30.000000000000000000
+    Position.Z = -30.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+end
