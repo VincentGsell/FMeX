@@ -1,6 +1,11 @@
 # FMeX
 
-FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage performance and usability of 3D FMX library.
+FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage performance and usability of FMX library.
+
+History : 
+- 20190520 : Code reorg, Add OBJ loader.
+- 20190301 : Added Hud concept.
+- 20181201 : Added Spine2D (Early - To rewrite)
 
 ## Goal and target 
 
@@ -24,15 +29,29 @@ FMeX, with its single ProxyControl and Graph component, open a door on a "master
 - Fully FMX compatible (Entry point : TFMeXProxy, which is FMX TControl3D)
 - Introduces TeCustomMesh, with "MergeFrom" method, for merging FMeX Mesh together into on and single Mesh. (Draw Call optimization)
 - Show techniques to achieve good performance within FMX, with merging Ticks, and animation
-- Introduce Candender, to control precise animation cadence (slow down motion, speed up, back to normal) (see Particle demo)
-- Introduce advanced 3D mesh, such has "System light" Image (With Atlas), MetaBalls generation and more to come
+- Cadender, to control precise animation cadence (slow down motion, speed up, back to normal) (see Particle demo)
+- 3D mesh, such has "System light" Image (With Atlas), MetaBalls generation and more to come
 - Actualy, as Particle demo show, it simplify drasticaly 2d sequence building and rendering setup.
-- [Coming] : Hud system.
-- [Coming] : Spine integration.
-- [Coming] : Rod and pipe 3d Mesh
-- [Coming] : [Angus Johnson's](http://www.angusj.com) clipper, for base 2d extruder.
+- Hud system (Early)
+- Spine integration.
+- Rod and pipe 3d Mesh
+- [Angus Johnson's](http://www.angusj.com) clipper, for base 2d extruder. (Used as a base lib.)
 
 ## Exemple
+
+### Obj Loader (Work in progress)
+Attempt to replace the OBJ FMX loader which has some problem for loading large file (perf(!) and materials behaviour)
+
+![Alt text](/img/chalet.png?raw=true "Photogrammetry file")
+![Alt text](/img/ramses.png?raw=true "huge model")
+
+### Spine Loader (Work in progress)
+Attempt to adapt an existing Spine loader. (esotericsoftware.com)
+-> Used cool unit form Dan (dan.soft.studio "_a_t_" gmail.com): 
+-> After compile, please put goblins.xxx and goblins-[anim].xxx into binary dir.
+This is a test only, and certainly spine had no futur application in FMeX.
+
+![Alt text](/img/spineexpl.png?raw=true "spine goblin model")
 
 ### Merged Mesh
 As a TeCustom.MergeFrom(...) capabilities, see Stress Cube demo. With a less than a middle class usual SoHo desktop PC computer, thousands of cube limits could be reached. It could be a good base for a Cube Voxel Engine. Note that is is a raw rendering, there are no geometric optimization at all. And it need it. :)

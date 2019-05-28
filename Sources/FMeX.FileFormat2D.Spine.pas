@@ -42,21 +42,25 @@ Type
   Private
     Skeleton : TSpineSkeleton;
     Renderer : TFMeXSpineRender;
+    FAnimations : Array of TSpineAnimation;
     FGlobalTimeAdapter: Single;
     FCurrentSkin: String;
+    FAnimationIndex: Integer;
     procedure SetCurrentSkin(const Value: String);
+    function GetAnimation(Index: Integer): TSpineAnimation;
+    procedure SetAnimationIndex(const Value: Integer);
   Public
-    AnimWalk : TSpineAnimation;
-
     Constructor Create;
-
     Procedure Init;
+    procedure Adapt(OffsetCorrectionX, OffsetCorrectionY, ScaleCorrectionX, ScaleCorrectionY : Single);
 
     Procedure Update;
     Procedure Draw(aImage : TeImage);
 
     Property GlobalTimeAdapter : Single read FGlobalTimeAdapter Write FGlobalTimeAdapter;
     Property CurrentSkin : String read FCurrentSkin Write SetCurrentSkin;
+    Property Animations[Index : Integer] : TSpineAnimation read GetAnimation;
+    property CurrentAnimationIndex : Integer read FAnimationIndex Write SetAnimationIndex;
 
   End;
 
@@ -140,6 +144,7 @@ begin
   FInput.Data.VertexBuffer.Vertices[1] := Point3d(pv^[1].x, pv^[1].y, 0);
   FInput.Data.VertexBuffer.Vertices[2] := Point3d(pv^[2].x, pv^[2].y, 0);
   FInput.Data.VertexBuffer.Vertices[3] := Point3d(pv^[3].x, pv^[3].y, 0);
+
   // second triangle
 
 //  FInput.Data.VertexBuffer.FInput.Data.VertexBuffertices[3] := Point3d(pv^[0].x, pv^[0].y, 0);
@@ -171,7 +176,6 @@ begin
   Output.MergeFrom(FInput);
   //Context.DrawTriangles(Ver,Idx,TFMeXSpineTexture(Texture).Texture.Material,1.0);
 
-
   //pr2d_TriList(TG2SpineTexture(Texture).Texture, @vert[0], @text[0], 0, length(vert) - 1, $FFFFFF, 255, FX_BLEND or PR2D_FILL);
 
 end;
@@ -180,6 +184,18 @@ end;
 
 
 { TFMeXSpineObject }
+
+procedure TFMeXSpineObject.Adapt(OffsetCorrectionX, OffsetCorrectionY,
+  ScaleCorrectionX, ScaleCorrectionY : Single);
+var b : TSpineBone;
+begin
+  b := Skeleton.GetRootBone;
+  b.x := OffsetCorrectionX;
+  b.y := OffsetCorrectionY;
+  b.ScaleX := ScaleCorrectionX;
+  b.ScaleY := ScaleCorrectionY;
+  Skeleton.UpdateWorldTransform;
+end;
 
 constructor TFMeXSpineObject.Create;
 begin
@@ -194,6 +210,12 @@ begin
   Skeleton.Draw(Renderer);
 end;
 
+function TFMeXSpineObject.GetAnimation(Index: Integer): TSpineAnimation;
+begin
+  result := FAnimations[index];
+end;
+
+
 procedure TFMeXSpineObject.Init;
 const
   CharacterName = 'goblins';
@@ -204,13 +226,9 @@ var
   sd : TSpineSkeletonData;
 
   path : string;
+  i : integer;
 begin
-  //ScrollX := 0;
 
-  //texBackground := tex_LoadFromFile('Background.jpg');
-  //texFloor := tex_LoadFromFile('floor.png');
-
-  //path := '.\Assets\Goblins\';
   path := '';
 
   tl := TFMeXSpineTextureLoader.Create;
@@ -223,40 +241,32 @@ begin
   sb.Free;
 
   Skeleton := TSpineSkeleton.Create(sd);
-  AnimWalk := sd.findAnimation('walk');
-  //AnimStand := sd.findAnimation('stand');
-  //AnimAttack := sd.findAnimation('attack');
-
-  sd.Free;
-
-  CurrentSkin := 'goblin'; //Trig SetCurrentSkin.
-
-  //PosX := 512;
-
+  SetLength(FAnimations,Length(sd.Animations));
+  for I := Low(sd.Animations) to High(sd.Animations) do
+    FAnimations[i] := sd.Animations[i];
+  CurrentAnimationIndex := 0;
   Renderer := TFMeXSpineRender.Create;
+end;
 
+procedure TFMeXSpineObject.SetAnimationIndex(const Value: Integer);
+begin
+  FAnimationIndex := 0;
+  if (Value<=High(Fanimations)) and (Value>=Low(Fanimations)) then
+    FAnimationIndex := Value;
 end;
 
 procedure TFMeXSpineObject.SetCurrentSkin(const Value: String);
-var b : TSpineBone;
 begin
   FCurrentSkin := Value;
   Skeleton.SetSkin(FCurrentSkin);
   Skeleton.SetToBindPose;
-
-  b := Skeleton.GetRootBone;
-  b.x := 0;
-  b.y := 0;
-  b.ScaleX := 0.04;
-  b.ScaleY := 0.04;
-  Skeleton.UpdateWorldTransform;
 end;
 
 procedure TFMeXSpineObject.Update;
 begin
-  if Assigned(AnimWalk) then
+  if Assigned(Animations[CurrentAnimationIndex]) then
   begin
-    AnimWalk.Apply(Skeleton,TheCadencer.Tic * FGlobalTimeAdapter,true);
+    Animations[CurrentAnimationIndex].Apply(Skeleton,TheCadencer.Tic  * FGlobalTimeAdapter,true);
     Skeleton.UpdateWorldTransform;
   end;
 end;

@@ -15,6 +15,9 @@
         <Projects Include="Grapher\ProjectGrapherDemo.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Spine\SpineExpl.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -59,14 +62,23 @@
     <Target Name="ProjectGrapherDemo:Make">
         <MSBuild Projects="Grapher\ProjectGrapherDemo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="SpineExpl">
+        <MSBuild Projects="Spine\SpineExpl.dproj"/>
+    </Target>
+    <Target Name="SpineExpl:Clean">
+        <MSBuild Projects="Spine\SpineExpl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SpineExpl:Make">
+        <MSBuild Projects="Spine\SpineExpl.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo"/>
+        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean"/>
+        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make"/>
+        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -48,6 +48,8 @@ private
 Public
   Procedure ProcessGraph; Virtual; Abstract;
 
+  function add(aCtrl : TFMeXGraph3D) : TFMeXGraph3D; virtual; Abstract;
+
   property Proxy : TFMeXProxy read FProxy Write FProxy;
 End;
 
@@ -58,7 +60,7 @@ Public
   constructor Create(AOwner: TComponent); override;
   destructor Destroy; Override;
 
-  function add(aCtrl : TFMeXGraph3D) : TFMeXGraph3D;
+  function add(aCtrl : TFMeXGraph3D) : TFMeXGraph3D; Override;
 
   Procedure ProcessGraph; Override;
 End;

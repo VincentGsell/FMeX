@@ -1,0 +1,32 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Camera = Camera1
+  Caption = 'Form1'
+  ClientHeight = 594
+  ClientWidth = 942
+  UsingDesignCamera = False
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = Form3DCreate
+  OnMouseDown = Form3DMouseDown
+  OnMouseMove = Form3DMouseMove
+  OnMouseUp = Form3DMouseUp
+  OnMouseWheel = Form3DMouseWheel
+  OnRender = Form3DRender
+  DesignerMasterStyle = 0
+  object Timer1: TTimer
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 304
+    Top = 224
+  end
+  object Camera1: TCamera
+    AngleOfView = 45.000000000000000000
+    Position.Z = -10.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+end
