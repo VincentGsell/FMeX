@@ -1,0 +1,183 @@
+object Form7: TForm7
+  Left = 0
+  Top = 0
+  Camera = Camera1
+  Caption = 'Form7'
+  ClientHeight = 480
+  ClientWidth = 732
+  UsingDesignCamera = False
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = Form3DCreate
+  OnMouseDown = Form3DMouseDown
+  OnMouseMove = Form3DMouseMove
+  OnMouseWheel = Form3DMouseWheel
+  DesignerMasterStyle = 0
+  object Layer3D1: TLayer3D
+    Height = 62.000000000000000000
+    Position.X = 332.000000000000000000
+    Position.Y = 40.000000000000000000
+    Projection = Screen
+    Resolution = 50
+    StyleLookup = 'backgroundstyle'
+    Width = 645.000000000000000000
+    object Button1: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 57.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Load...'
+      OnClick = Button1Click
+    end
+    object RadioButton1: TRadioButton
+      Tag = 2
+      Position.X = 82.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Dot Frame'
+      OnChange = RadioButton1Change
+    end
+    object RadioButton2: TRadioButton
+      Tag = 1
+      Position.X = 82.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Wire Frame'
+      OnChange = RadioButton1Change
+    end
+    object RadioButton3: TRadioButton
+      Tag = 3
+      IsChecked = True
+      Position.X = 82.000000000000000000
+      Position.Y = 32.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Full Frame'
+      OnChange = RadioButton1Change
+    end
+    object TrackBar1: TTrackBar
+      CanParentFocus = True
+      Min = 10.000000000000000000
+      Orientation = Horizontal
+      Position.X = 192.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 153.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Value = 10.000000000000000000
+      OnChange = TrackBar1Change
+    end
+    object Label1: TLabel
+      Position.X = 192.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Scale'
+    end
+    object Texture: TCheckBox
+      IsChecked = True
+      Position.X = 192.000000000000000000
+      Position.Y = 32.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Texture'
+      OnChange = TextureChange
+    end
+    object ListBox1: TListBox
+      Position.X = 392.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 137.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      DisableFocusEffect = True
+      DefaultItemStyles.ItemStyle = ''
+      DefaultItemStyles.GroupHeaderStyle = ''
+      DefaultItemStyles.GroupFooterStyle = ''
+      OnChange = ListBox1Change
+      Viewport.Width = 133.000000000000000000
+      Viewport.Height = 45.000000000000000000
+    end
+    object Button2: TButton
+      Position.X = 529.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 37.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      Text = '>'
+      OnClick = Button2Click
+    end
+    object Label2: TLabel
+      Position.X = 576.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 15.000000000000000000
+      Size.PlatformDefault = False
+      Text = '0 frame(s)'
+    end
+    object Label3: TLabel
+      Position.X = 573.000000000000000000
+      Position.Y = 24.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 15.000000000000000000
+      Size.PlatformDefault = False
+      Text = '0 frame(s)'
+    end
+  end
+  object Dummy1: TDummy
+    Position.X = -0.033423304557800290
+    Position.Y = 0.145278930664062500
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+    object Camera1: TCamera
+      AngleOfView = 45.000000000000000000
+      Position.Y = -3.000000000000000000
+      Position.Z = -10.000000000000000000
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+      object Light1: TLight
+        Color = claWhite
+        LightType = Spot
+        SpotCutOff = 60.000000000000000000
+        SpotExponent = 4.000000000000000000
+        Position.X = -1.233665227890015000
+        Position.Y = -0.088003158569335940
+        Width = 1.000000000000000000
+        Height = 1.000000000000000000
+        Depth = 1.000000000000000000
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 304
+    Top = 224
+  end
+  object LightMaterialSource1: TLightMaterialSource
+    Diffuse = claWhite
+    Ambient = xFF202020
+    Emissive = claNull
+    Specular = xFF606060
+    Shininess = 30
+    Left = 312
+    Top = 232
+  end
+  object TextureMaterialSource1: TTextureMaterialSource
+    Left = 104
+    Top = 232
+  end
+  object TimerAnim: TTimer
+    Enabled = False
+    Interval = 30
+    OnTimer = TimerAnimTimer
+    Left = 352
+    Top = 224
+  end
+end

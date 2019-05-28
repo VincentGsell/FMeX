@@ -1,0 +1,26 @@
+object Form5: TForm5
+  Left = 0
+  Top = 0
+  Camera = Camera1
+  Caption = 'Form5'
+  ClientHeight = 648
+  ClientWidth = 878
+  UsingDesignCamera = False
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = Form3DCreate
+  OnMouseWheel = Form3DMouseWheel
+  DesignerMasterStyle = 0
+  object TextureMaterialSource1: TTextureMaterialSource
+    Left = 304
+    Top = 224
+  end
+  object Camera1: TCamera
+    AngleOfView = 45.000000000000000000
+    Position.Z = -130.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+end

@@ -42,8 +42,8 @@ FMeX, with its single ProxyControl and Graph component, open a door on a "master
 ### Obj Loader (Work in progress)
 Attempt to replace the OBJ FMX loader which has some problem for loading large file (perf(!) and materials behaviour)
 
-![Alt text](/img/chalet.png?raw=true "Photogrammetry file")
-![Alt text](/img/ramses.png?raw=true "huge model")
+![Alt text](/img/Chalet.png?raw=true "Photogrammetry file")
+![Alt text](/img/Ramses.png?raw=true "huge model")
 
 ### Spine Loader (Work in progress)
 Attempt to adapt an existing Spine loader. (esotericsoftware.com)
