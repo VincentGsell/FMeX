@@ -13,6 +13,11 @@ FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage p
 - Rod and pipe 3d Mesh
 - [Angus Johnson's](http://www.angusj.com) clipper, for base 2d extruder. (Used as a base lib.)
 
+##Dependancy : 
+
+- GS.Core
+- Gx
+
 ## Exemple
 
 ### Obj Loader (Work in progress)
@@ -37,4 +42,4 @@ As a TeCustom.MergeFrom(...) capabilities, see Stress Cube demo. With a less tha
 ### Merged Mesh in a real case
 this example implements a 2d particle rendering : Logic side is processed on CPU, and rendering side prepares all Particles in large Merged Mesh, which is manipulated runtime by CPU, and drawing in one "low level" call. (see FMeX.Particles2D.pas)
 
-![Alt text](/img/ParticleDemo.png?raw=true "Particlein action")
+![Alt text](/img/ParticleDemo.png?raw=true "Particle in action")
