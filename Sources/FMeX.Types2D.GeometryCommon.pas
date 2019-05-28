@@ -1,11 +1,32 @@
+{ -----------------------------------------------------------------------------
+    This program is free software: Under statement of join file README - LGPL.txt
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+{-----------------------------------------------------------------------------
+ Unit Name : FMeX.Types2D.GeometryCommon
+ Author    : Vincent Gsell (vincent dot gsell at gmail dot com)
+ Purpose   : Basic and independant 2D graphic shape generator.
+ Date:     : ?
+ History   :
+ 20180426 - Put this unit in GS collection. Freeing from Types dependancy.
+-----------------------------------------------------------------------------}
 unit FMeX.Types2D.GeometryCommon;
 
 Interface
 
 uses
   System.SysUtils, System.Types, System.Classes,
-  FMX.Types, FMX.GRaphics, System.Math.Vectors,
-  FMeX.Types, FMeX.Vectors;
+  GS.Direction,
+  clipper;
 
 Type
 
@@ -46,7 +67,7 @@ End;
 TFMeX2DGeometryGenerator = Class(TFMeXGeometryGenerator)
 Private
 Protected
-  LocalGeometryTool : TofDirectionalObject;
+  LocalGeometryTool : TDirectionalObject;
 Public
   Constructor Create; Virtual;
   Destructor Destroy; Override;
@@ -71,7 +92,7 @@ End;
 TFMeXDiskDonutGenerator = Class(TFMeXDiskGenerator)
 Private
   FInnerRadius: Single;
-  FSecondaryGeometryTool : TofDirectionalObject;
+  FSecondaryGeometryTool : TDirectionalObject;
 
   procedure SetInnerRadius(const Value: Single);
 Public
@@ -83,7 +104,7 @@ Published
 End;
 
 //------------------------------------------------- Sub Operation.
-TFMeXSubOpp = Class(TFMeX2DGeometryGenerator)
+TFMeX2DSubOpp = Class(TFMeX2DGeometryGenerator)
 private
   FSubject: TFMeXGeometry2DData;
   FSubOp: TFMeXGeometry2DData;
@@ -96,7 +117,6 @@ End;
 
 implementation
 
-Uses Clipper;
 
 { TFMeXDiskGenerator }
 
@@ -201,7 +221,7 @@ end;
 constructor TFMeXDiskDonutGenerator.Create;
 begin
   Inherited;
-  FSecondaryGeometryTool := TofDirectionalObject.Create(0,0,1);
+  FSecondaryGeometryTool := TDirectionalObject.Create(0,0,1);
   InnerRadius := 0.5;
 end;
 
@@ -268,7 +288,7 @@ end;
 constructor TFMeX2DGeometryGenerator.Create;
 begin
   Inherited;
-  LocalGeometryTool := TofDirectionalObject.Create(0,0,1);
+  LocalGeometryTool := TDirectionalObject.Create(0,0,1);
 end;
 
 destructor TFMeX2DGeometryGenerator.Destroy;
@@ -277,9 +297,9 @@ begin
   inherited;
 end;
 
-{ TFMeXSubOpp }
+{ TFMeX2DSubOpp }
 
-procedure TFMeXSubOpp.Generate(var aData: TFMeXGeometry2DData);
+procedure TFMeX2DSubOpp.Generate(var aData: TFMeXGeometry2DData);
 var c : TClipper;
     a,b,r : TPaths;
 
@@ -306,6 +326,7 @@ begin
     b[0][i].Y := Round(SubOp.Border[i].P1.Y*1000);
   end;
 
+  //Use Clipper lib to generate aData starting from Subject and SubOp.
   c := TClipper.Create;
   c.AddPaths(a,ptSubject,true);
   c.AddPaths(b,ptClip,true);
@@ -319,8 +340,6 @@ begin
   end;
 
   c.Free;
-
-  //Todo : Use Clipper to generate aData starting from Subject and SubOp.
 end;
 
 end.

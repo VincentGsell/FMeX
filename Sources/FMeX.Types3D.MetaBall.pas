@@ -621,6 +621,7 @@ begin
     Data.CalcFaceNormals;
 
   ProcessBoundingBox;
+
 end;
 
 {
@@ -882,8 +883,7 @@ begin
 
   RebuildMesh(HighDefNormal);
 
-
-{ Useless in FMX Scope (Normal build from vertex calculation.)
+{
   if mbTriNorm<>NIL then begin
     if mbTriColor<>NIL then begin
       // norm + color

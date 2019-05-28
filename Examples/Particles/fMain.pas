@@ -7,7 +7,12 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Math.Vectors, FMX.Objects, FMX.StdCtrls, FMX.Controls.Presentation,
   FMX.Objects3D, FMX.Controls3D, FMX.Viewport3D, FMX.MaterialSources,
-  FMeX.Types3D, FMeX.Ticks, FMeX.Images, FMeX.Particles2D;
+  FMeX.Types3D,
+  FMeX.Ticks,
+  FMeX.Images,
+  FMeX.Graph,
+  FMeX.Gx.Image,
+  FMeX.Gx.Particles2D;
 
 type
   TForm1 = class(TForm)
@@ -26,6 +31,8 @@ type
     TextureMaterialSource1: TTextureMaterialSource;
     Camera1: TCamera;
     TimerStats: TTimer;
+    cbMyImageWallRotation: TCheckBox;
+    cbRotateProxy: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure Grid3D1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Single; RayPos, RayDir: TVector3D);
@@ -36,19 +43,23 @@ type
     procedure TrackBar1Tracking(Sender: TObject);
     procedure TrackBar2Tracking(Sender: TObject);
     procedure TimerStatsTimer(Sender: TObject);
+    procedure TimerLoopTimer(Sender: TObject);
   private
     { Private declarations }
     Procedure OnAppIdle(Sender: TObject; var Done: Boolean);
     procedure SetUpAtlas;
     procedure SetUpObject;
 
+    Procedure Loop;
+
   public
     { Public declarations }
     Atlas : TeTextureAtlas; //Global image atlas.
 
-    MyPizza : TeSpeedImage;
-    MyImageWall : TeRepeatedImage;
-    MyDino : TeImage;
+    MyPizza : TeCtrlImage;
+
+    MyImageWall : TeCtrlRepeatedImage;
+    MyDino : TeCtrlImage;
 
     MyStarField,
     MystrawberryExplosion,
@@ -58,8 +69,8 @@ type
     cycle : Cardinal;
     mcycle : Cardinal;
 
-    LocalGraph : TFMeXGraphFor2D;
     LocalProxy : TFMeXProxy;
+    LocalGraph : TFMeXGraphFor2D;
   end;
 
 var
@@ -88,6 +99,7 @@ begin
   Viewport3D1.AddObject(LocalProxy);
 
   //Change draw sequence here to change draw order. First is farer, last is nearer.
+
   LocalGraph.Add(MyImageWall);
   LocalGraph.Add(MyStarField);
   LocalGraph.Add(MyRedFlowerParticle);
@@ -102,33 +114,10 @@ begin
 end;
 
 procedure TForm1.OnAppIdle(Sender: TObject; var Done: Boolean);
-var lparticleClount : Integer;
 begin
-  inc(cycle);
-
-  TheCadencer.Update;
-
-  lparticleClount := 0;
-
-  if assigned(MyMusicMouseControledParticle) then
-  begin
-    MyMusicMouseControledParticle.UpdateParticles;
-    inc(lparticleClount,MyMusicMouseControledParticle.ParticleCount);
-  end;
-  MyStarField.UpdateParticles;
-  inc(lparticleClount,MyStarField.ParticleCount);
-  MystrawberryExplosion.UpdateParticles;
-  inc(lparticleClount,MystrawberryExplosion.ParticleCount);
-  MyRedFlowerParticle.UpdateParticles;
-  inc(lparticleClount,MyRedFlowerParticle.ParticleCount);
-
-  MyImageWall.RotationAngle.Z := MyImageWall.RotationAngle.Z + TheCadencer.TimeSliceValue(50);
-
-  Label6.Text := 'Total parcicle count : ' + IntToStr(lparticleClount);
-  Label3.Text := IntToStr(mcycle)+' cycles';
-
-  Invalidate;
+  Loop;
 end;
+
 procedure TForm1.SetUpAtlas;
 var IndexX, IndexY : Integer;
     margeX, margeY : Single;
@@ -175,7 +164,7 @@ end;
 procedure TForm1.SetUpObject;
 begin
    //Main Image component : Used it widely, it is fast :)
-   MyDino := TeImage.Create(nil);
+   MyDino := TeCtrlImage.Create;
    //this one maintain a TeTextureConfiguration, witch pointed on an TextureAtlas object.
    MyDino.SourceConfiguration.TextureData := Atlas;
    MyDino.SourceConfiguration.TextureItem := 'PopUp Dino';
@@ -183,7 +172,7 @@ begin
 
 
    //Repeated image
-   MyImageWall := TeRepeatedImage.Create(nil);
+   MyImageWall := TeCtrlRepeatedImage.Create;
 
    MyImageWall.TextureRepeatX := 30;
    MyImageWall.TextureRepeatY := 30;
@@ -193,59 +182,52 @@ begin
    MyImageWall.SourceConfiguration.TextureItem := 'music note';
 
 
-   MyImageWall.Position.X := -15;
-   MyImageWall.Position.Y := -15;
-   MyImageWall.Width := 1;
-   MyImageWall.Height := 1;
+   MyImageWall.Position := Point3d(-15,-15,0);
+//   MyImageWall.Width := 1;
+//   MyImageWall.Height := 1;
 
-   MyImageWall.RotationAngle.Z := 35;
+//   MyImageWall.RotationAngle.Z := 35;
 
-   MyImageWall.RotationCenter.X := MyImageWall.TextureRepeatX div 2;
-   MyImageWall.RotationCenter.Y := MyImageWall.TextureRepeatY div 2;
+//   MyImageWall.RotationCenter.X := MyImageWall.TextureRepeatX div 2;
+//   MyImageWall.RotationCenter.Y := MyImageWall.TextureRepeatY div 2;
    //See TimerSwap, we change dyamicaly the image.
 
 
-   MyPizza := TeSpeedImage.Create(nil);
+
+   MyPizza := TeCtrlImage.Create;
    MyPizza.SourceConfiguration.TextureData := Atlas;
    MyPizza.SourceConfiguration.TextureItem := 'Pizza';
-   MyPizza.DrawSpeedEffect := true;
-   MyPizza.Position.X := 0;
-   MyPizza.Position.Y := 0;
-   MyPizza.Width := 1;
-   MyPizza.Height := 1;
+//   MyPizza.DrawSpeedEffect := true;
+   MyPizza.Position := Point3D(0,0,0);
 
-
-   MystrawberryExplosion := TeParticle2d.Create(nil);
+   MystrawberryExplosion := TeParticle2d.Create;
    MystrawberryExplosion.ParticleCount := 1000;
    MystrawberryExplosion.ParticleType := TeParticle2dType.ptExplodeAdLib;
    MystrawberryExplosion.SetupRect(0,0,10,10);
-   MystrawberryExplosion.Position.x := 4;
-   MystrawberryExplosion.Position.y := 4;
+   MystrawberryExplosion.Position := Point3D(4,4,0);
    MystrawberryExplosion.SourceConfiguration.TextureData := Atlas;
    MystrawberryExplosion.SourceConfiguration.TextureItem := 'Strawberry';
    MystrawberryExplosion.BehaviourParticleBecomeSmallerDuringLife := True;
 
-   MyRedFlowerParticle := TeParticle2d.Create(nil);
+   MyRedFlowerParticle := TeParticle2d.Create;
    MyRedFlowerParticle.ParticleCount := 3000;
    MyRedFlowerParticle.ParticleType := TeParticle2dType.ptExplodeAdLib;
    MyRedFlowerParticle.BehaviourMaxDurationInMS := MyRedFlowerParticle.BehaviourMaxDurationInMS * 4;
    MyRedFlowerParticle.SetupRect(-10,7,10,10);
-   MyRedFlowerParticle.Position.x := 4;
-   MyRedFlowerParticle.Position.y := 4;
+   MyRedFlowerParticle.Position := Point3D(4,4,0);
    MyRedFlowerParticle.SourceConfiguration.TextureData := Atlas;
    MyRedFlowerParticle.SourceConfiguration.TextureItem := 'Red Flower';
    MyRedFlowerParticle.BehaviourParticleBecomeSmallerDuringLife := True;
 
-   MyStarField := TeParticle2d.Create(nil);
+   MyStarField := TeParticle2d.Create;
    MyStarField.ParticleCount := 500;
    MyStarField.ParticleType := TeParticle2dType.ptStarfield;
    MyStarField.SetupRect(0,0,200, 20);
-   MyStarField.Position.x := -50;
-   MyStarField.Position.y := -5;
+   MyStarField.Position := Point3D(-50,5,0);
    MyStarField.SourceConfiguration.TextureData := Atlas;
    MyStarField.SourceConfiguration.TextureItem := 'Ice Star';
 
-   MyMusicMouseControledParticle := TeParticle2d.Create(Self);
+   MyMusicMouseControledParticle := TeParticle2d.Create;
    MyMusicMouseControledParticle.ParticleCount := 1000;
    MyMusicMouseControledParticle.ParticleType := TeParticle2dType.ptExplode;
    MyMusicMouseControledParticle.SetupRect(0,0,10,10);
@@ -253,6 +235,11 @@ begin
    MyMusicMouseControledParticle.SourceConfiguration.TextureData := Atlas;
    MyMusicMouseControledParticle.SourceConfiguration.TextureItem := 'Music Note';
    MyMusicMouseControledParticle.BehaviourParticleBecomeSmallerDuringLife := True;
+end;
+
+procedure TForm1.TimerLoopTimer(Sender: TObject);
+begin
+  Loop;
 end;
 
 procedure TForm1.TimerStatsTimer(Sender: TObject);
@@ -290,7 +277,8 @@ procedure TForm1.Grid3D1MouseMove(Sender: TObject; Shift: TShiftState; X,
 var i : TPoint3d;
 begin
   Grid3D1.RayCastIntersect(RayPos,RayDir,I);
-  MyDino.Position.Point := Point3D(i.X,i.Y,0);
+  i := LocalProxy.AbsoluteToLocal3D(I);
+  MyDino.Position := Point3D(i.X,i.Y,0);
 end;
 
 procedure TForm1.Grid3D1MouseUp(Sender: TObject; Button: TMouseButton;
@@ -298,13 +286,51 @@ procedure TForm1.Grid3D1MouseUp(Sender: TObject; Button: TMouseButton;
 var i : TPoint3d;
 begin
   Grid3D1.RayCastIntersect(RayPos,RayDir,I);
+  i := LocalProxy.AbsoluteToLocal3D(I);
   Disk1.Position.X := X;
   Disk1.Position.Y := Y;
 
   MyMusicMouseControledParticle.SetupRect(0,0,100,100);
-  MyMusicMouseControledParticle.Position.x := i.x;
-  MyMusicMouseControledParticle.Position.y := i.y;
+  MyMusicMouseControledParticle.Position := Point3d(i.x,i.y,0);
   MyMusicMouseControledParticle.Reset;
+end;
+
+procedure TForm1.Loop;
+var lparticleClount : Integer;
+begin
+  inc(cycle);
+
+  TheCadencer.Update;
+
+  lparticleClount := 0;
+
+  if assigned(MyMusicMouseControledParticle) then
+  begin
+    MyMusicMouseControledParticle.UpdateParticles;
+    inc(lparticleClount,MyMusicMouseControledParticle.ParticleCount);
+  end;
+  MyStarField.UpdateParticles;
+  inc(lparticleClount,MyStarField.ParticleCount);
+  MystrawberryExplosion.UpdateParticles;
+  inc(lparticleClount,MystrawberryExplosion.ParticleCount);
+  MyRedFlowerParticle.UpdateParticles;
+  inc(lparticleClount,MyRedFlowerParticle.ParticleCount);
+
+  if cbMyImageWallRotation.IsChecked then
+    MyImageWall.ZRotate := MyImageWall.ZRotate + TheCadencer.TimeSliceValue(50);
+
+  if cbRotateProxy.IsChecked then
+  begin
+    LocalProxy.RotationAngle.X := LocalProxy.RotationAngle.X + TheCadencer.TimeSliceValue(50);
+    LocalProxy.RotationAngle.Z := LocalProxy.RotationAngle.Z + TheCadencer.TimeSliceValue(50);
+  end;
+
+  MyPizza.ZRotate := MyPizza.ZRotate + TheCadencer.TimeSliceValue(250);
+
+  Label6.Text := 'Total parcicle count : ' + IntToStr(lparticleClount);
+  Label3.Text := IntToStr(mcycle)+' cycles';
+
+  Invalidate;
 end;
 
 end.

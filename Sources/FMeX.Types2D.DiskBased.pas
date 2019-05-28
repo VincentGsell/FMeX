@@ -1,3 +1,24 @@
+{ -----------------------------------------------------------------------------
+    This program is free software: Under statement of join file README - LGPL.txt
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+{-----------------------------------------------------------------------------
+ Unit Name : FMeX.Types2D.DiskBased
+ Author    : Vincent Gsell (vincent dot gsell at gmail dot com)
+ Purpose   : FMX2D Control : Exemple of waht is possible with FMeX.Types2D.GeometryCommon.
+ Date:     : 2010.. ?
+ History   :
+ 20190426 - Introducing GS collection : Freeing from Types dependancy.
+-----------------------------------------------------------------------------}
 unit FMeX.Types2D.DiskBased;
 
 interface
@@ -5,12 +26,7 @@ interface
 Uses
   System.SysUtils, System.Types, System.UITypes, System.Rtti, System.Classes,
   FMX.Types, FMX.Controls, FMX.Objects, System.Math.Vectors,
-  FMeX.Types2D.GeometryCommon
-  {$IFDEF VER240};
-  {$ELSE},
-  FMX.Graphics;
-  {$ENDIF}
-
+  FMeX.Types2D.GeometryCommon, FMX.Graphics;
 
 Type
 
@@ -39,7 +55,7 @@ End;
 
     procedure SetSubdivision(const Value: Integer);
   Protected
-    Procedure Rebuild; Virtual;
+    Procedure Rebuild; Override;
   Public
     constructor Create(AOwner: TComponent); override;
   Published
@@ -53,14 +69,6 @@ End;
     Public
     End;
 
-
-
-  TofExperiementation = Class(TofShapeCommon)
-  private
-  Public
-    Constructor Create(AOwner: TComponent; aData : TFMeXGeometry2DData); Reintroduce;
-  End;
-
 implementation
 
 { TofDisk2D }
@@ -68,7 +76,6 @@ implementation
 constructor TofDisk2D.Create(AOwner: TComponent);
 begin
   Inherited;
-
   FSubdivision := 50;
   Rebuild;
   RebuildBorder;
@@ -194,14 +201,6 @@ begin
   inherited;
   RebuildBorder;
   Repaint;
-end;
-
-{ TofExperiementation }
-
-constructor TofExperiementation.Create(AOwner: TComponent; aData : TFMeXGeometry2DData);
-begin
-  Inherited Create(aOwner);
-  InternalData := aData;
 end;
 
 end.

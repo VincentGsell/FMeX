@@ -41,15 +41,16 @@ End;
 //------------------------------------------------------------------------------
 TeTextureConfiguration = Class
 Private
+protected
   FTextureData: TeTextureAtlas;
   FTextureItem: String;
   FTextureItemIndex: Integer;
-  FSubscripter: TeCustomMesh;
 
   procedure SetTextureData(const Value: TeTextureAtlas);
   procedure SetTextureItem(const Value: String);
   procedure SetTextureItemIndex(const Value: Integer);
-  Procedure InternalSetTextureItem(aTextureItem : TeTextureAtlasItem);
+
+  procedure InternalSetTextureItem(aTextureItem : TeTextureAtlasItem); virtual; abstract;
 Public
   Constructor Create;
   Destructor Destroy; Override;
@@ -61,9 +62,16 @@ Public
   Property TextureData : TeTextureAtlas read FTextureData Write SetTextureData;
   Property TextureItem : String read FTextureItem Write SetTextureItem;
   Property TextureItemIndex : Integer read FTextureItemIndex Write SetTextureItemIndex;
-  Property Subscripter : TeCustomMesh read FSubscripter Write FSubscripter;
-
 End;
+
+TeCustomMeshTextureConfiguration = class(TeTextureConfiguration)
+private
+protected
+  FSubscripter: TeCustomMesh;
+  Procedure InternalSetTextureItem(aTextureItem : TeTextureAtlasItem); override;
+public
+  Property Subscripter : TeCustomMesh read FSubscripter Write FSubscripter;
+end;
 
 //------------------------------------------------------------------------------
 
@@ -74,14 +82,14 @@ Protected
   FTY1: Single;
   FTX2: Single;
   FTY2: Single;
-  FSourceConfiguration: TeTextureConfiguration;
-  Procedure Notification(Sender : TObject); Override;
+  FSourceConfiguration: TeCustomMeshTextureConfiguration;
+  Procedure MeshNotification(Sender : TObject); Override;
 Public
   Procedure InternalBuildMesh; Virtual; Abstract;
   Constructor Create(AOwner: TComponent); override;
   Destructor Destroy; Override;
 Published
-  Property SourceConfiguration : TeTextureConfiguration read FSourceConfiguration;
+  Property SourceConfiguration : TeCustomMeshTextureConfiguration read FSourceConfiguration;
 End;
 
 TeImage = Class(TeCustomMeshTextured)
@@ -89,8 +97,15 @@ Private
   Procedure InternalBuildMesh; Override;
 Public
   Constructor Create(AOwner: TComponent); override;
-  Destructor Destroy; Override;
+  procedure Resize3d; Override;
+
+  //Full automated load picture (create and assign texture data and atlas if needed (Must be freed!).
+  Procedure LoadFromFile(aPicture : String);
 End;
+
+
+
+
 
 TeSpeedImage = class(TeImage)
 private
@@ -98,7 +113,7 @@ protected
   FDrawSpeedEffect: Boolean;
   procedure SetDrawSpeedEffect(const Value: Boolean);
 public
-  Procedure Render(aContext : TContext3D); Override;
+  Procedure Render(aContext : TContext3D);
   Property DrawSpeedEffect : Boolean read FDrawSpeedEffect Write SetDrawSpeedEffect;
 end;
 
@@ -116,7 +131,6 @@ Private
 
 Public
   Constructor Create(AOwner: TComponent); override;
-  Destructor Destroy; override;
 Published
   Property TextureRepeatX : Cardinal read FVertexCapaX Write SetVertexCapaX;
   Property TextureRepeatY : Cardinal read FVertexCapaY Write SetVertexCapaY;
@@ -211,17 +225,6 @@ begin
   Assert(Assigned(Result));
 end;
 
-procedure TeTextureConfiguration.InternalSetTextureItem(
-  aTextureItem: TeTextureAtlasItem);
-begin
-  if assigned(aTextureItem) then
-  begin
-    if Assigned(FSubscripter) then
-    begin
-      FSubscripter.Notification(Self);
-    end;
-  end;
-end;
 
 procedure TeTextureConfiguration.SetTextureData(const Value: TeTextureAtlas);
 begin
@@ -274,16 +277,9 @@ begin
   inherited;
   Data.VertexBuffer.Length := 4;
   Data.IndexBuffer.Length := 6;
-  FSourceConfiguration := TeTextureConfiguration.Create;
-  FSourceConfiguration.Subscripter := Self;
   InternalBuildMesh;
 end;
 
-destructor TeImage.Destroy;
-begin
-  FreeAndNil(FSourceConfiguration);
-  inherited;
-end;
 
 {
 procedure TeImage.DrawOverlap;
@@ -297,7 +293,7 @@ begin
   Data.VertexBuffer.Vertices[0] := Point3D(-0.5 * Width, -0.5 * Height, 0);
   Data.VertexBuffer.Vertices[1] := Point3D(0.5 * Width, -0.5 * Height, 0);
   Data.VertexBuffer.Vertices[2] := Point3D(0.5 * Width, 0.5 * Height, 0);
-  Data.VertexBuffer.Vertices[3] := Point3D(-0.5 * Width, 0.5, 0);
+  Data.VertexBuffer.Vertices[3] := Point3D(-0.5 * Width, 0.5 * Height, 0);
 
   Data.VertexBuffer.TexCoord0[0] := PointF(FTX1, FTY1);
   Data.VertexBuffer.TexCoord0[1] := PointF(FTX2, FTY1);
@@ -317,6 +313,26 @@ end;
 
 
 
+procedure TeImage.LoadFromFile(aPicture: String);
+begin
+  if Not Assigned(SourceConfiguration.TextureData) then
+  begin
+    SourceConfiguration.TextureData := TeTextureAtlas.Create;
+    SourceConfiguration.TextureData.MaterialSource := TTextureMaterialSource.Create(nil);
+    SourceConfiguration.TextureData.AddItem('Full',0,0,1,1);
+  end;
+  TTextureMaterialSource(SourceConfiguration.TextureData.MaterialSource).Texture.LoadFromFile(aPicture);
+  SourceConfiguration.TextureItemIndex := 0;
+  Width := TTextureMaterialSource(SourceConfiguration.TextureData.MaterialSource).Texture.Width / 100;
+  Height := TTextureMaterialSource(SourceConfiguration.TextureData.MaterialSource).Texture.Height / 100;
+end;
+
+procedure TeImage.Resize3d;
+begin
+  inherited;
+  InternalBuildMesh;
+end;
+
 { TeRepeatedImage }
 
 constructor TeRepeatedImage.Create(AOwner: TComponent);
@@ -333,17 +349,9 @@ begin
   FTX2 := 1;
   FTY2 := 1;
 
-  FSourceConfiguration := TeTextureConfiguration.Create;
-  FSourceConfiguration.Subscripter := Self;
-
   InternalBuildMesh;
 end;
 
-destructor TeRepeatedImage.Destroy;
-begin
-  FreeAndNil(FSourceConfiguration);
-  inherited;
-end;
 
 procedure TeRepeatedImage.InternalBuildMesh;
 var i,j : integer;
@@ -501,7 +509,7 @@ end;
 constructor TeCustomMeshTextured.Create(AOwner: TComponent);
 begin
   Inherited;
-  FSourceConfiguration := TeTextureConfiguration.Create;
+  FSourceConfiguration := TeCustomMeshTextureConfiguration.Create;
   FSourceConfiguration.Subscripter := Self;
 end;
 
@@ -511,7 +519,7 @@ begin
   inherited;
 end;
 
-procedure TeCustomMeshTextured.Notification(Sender: TObject);
+procedure TeCustomMeshTextured.MeshNotification(Sender: TObject);
 var a : integer;
 begin
   if Sender = SourceConfiguration then //Ping from our SourceConfiguration object.
@@ -527,6 +535,20 @@ begin
       FTY2 := SourceConfiguration.TextureData.TextureAtlasItems[a].TextureSourceY2;
       InternalBuildMesh;
       Repaint;
+    end;
+  end;
+end;
+
+{ TeCustomMeshTextureConfiguration }
+
+procedure TeCustomMeshTextureConfiguration.InternalSetTextureItem(
+  aTextureItem: TeTextureAtlasItem);
+begin
+  if assigned(aTextureItem) then
+  begin
+    if Assigned(FSubscripter) then
+    begin
+      FSubscripter.MeshNotification(Self);
     end;
   end;
 end;

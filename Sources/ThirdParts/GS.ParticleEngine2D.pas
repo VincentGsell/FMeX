@@ -2,7 +2,7 @@ unit GS.ParticleEngine2D;
 
 interface
 
-Uses Classes, FMeX.Ticks, FMeX.Types, FMeX.Vectors;
+Uses Classes, FMeX.Ticks, GS.Direction;
 
 type
   TGSCustomParticleEngine2D = class;
@@ -23,7 +23,7 @@ type
 
   TGSForce2d = Class
   Public
-    ForceVector : TofVector;
+    ForceVector : TVector;
     Constructor Create;
   end;
 
@@ -33,7 +33,7 @@ type
     procedure SetForce(index: cardinal; const Value: TGSForce2d);
   Public
     Procedure AddForce(Fx,Fy : Double);
-    //Procedure AddForce(F: TofVector);
+    //Procedure AddForce(F: TVector);
     //Procedure AddForcePonctual(Fx,Fy : Integer); //remove automATICALY AFTER APPLY
     //Procedure ReplaceAllForceByOneResultForce;
     Property Forces[index : cardinal] : TGSForce2d read GetForce Write SetForce; Default;
@@ -92,9 +92,9 @@ type
      Procedure ResetCollisitionStatus;
 
   Public
-    Position : TofPoint;
+    Position : TPt;
 
-    Offset : TofPoint;
+    Offset : TPt;
 
     ParticleList : array of TGSParticle2D;
 
@@ -233,7 +233,7 @@ begin
   FConstraintEnabled:= False;
   Object_ForceList := TGSForceList.Create;
   Object_CollideList := TGSCollidableList.Create;
-  Offset := ofPoint(100,100,0);
+  Offset := Point(100,100,0);
   FMaximalVelocity := 50;
 end;
 
@@ -482,7 +482,7 @@ end;
 
 procedure TGSParticleEngine2D_Explode.Initialize;
 var i : integer;
-    v : TofVector;
+    v : TVector;
     pp : single;
 
 begin
@@ -531,7 +531,7 @@ end;
 
 procedure TGSParticleEngine2D_ExplodeAdLib.Update;
 var i : integer;
-    v : TofVector;
+    v : TVector;
     pp : single;
 begin
   inherited;

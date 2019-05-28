@@ -1,0 +1,76 @@
+object Form23: TForm23
+  Left = 0
+  Top = 0
+  Camera = Camera1
+  Caption = 'Form23'
+  ClientHeight = 732
+  ClientWidth = 1037
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnMouseDown = Form3DMouseDown
+  OnMouseMove = Form3DMouseMove
+  DesignerMasterStyle = 0
+  object Layer3D1: TLayer3D
+    Height = 90.000000000000000000
+    Position.X = 94.000000000000000000
+    Position.Y = 63.000000000000000000
+    Projection = Screen
+    Resolution = 50
+    StyleLookup = 'backgroundstyle'
+    Width = 150.000000000000000000
+    ZWrite = False
+    object Button1: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 48.000000000000000000
+      Size.Width = 112.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Create...'
+      OnClick = Button1Click
+    end
+    object TrackBar1: TTrackBar
+      CanParentFocus = True
+      Min = 3.000000000000000000
+      Orientation = Horizontal
+      Position.X = 16.000000000000000000
+      Position.Y = 24.000000000000000000
+      Size.Width = 113.000000000000000000
+      Size.Height = 20.000000000000000000
+      Size.PlatformDefault = False
+      Value = 3.000000000000000000
+    end
+    object Label1: TLabel
+      Position.X = 16.000000000000000000
+      Position.Y = 8.000000000000000000
+      Text = 'Subdiv...'
+    end
+  end
+  object Camera1: TCamera
+    AngleOfView = 45.000000000000000000
+    Position.Z = -10.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+  object LightMaterialSource1: TLightMaterialSource
+    Diffuse = claWhite
+    Ambient = xFF202020
+    Emissive = claNull
+    Specular = xFF606060
+    Shininess = 30
+    Left = 504
+    Top = 352
+  end
+  object Light1: TLight
+    Color = claWhite
+    LightType = Point
+    SpotCutOff = 180.000000000000000000
+    Position.X = -1.958733558654785000
+    Position.Y = -6.980041027069092000
+    Position.Z = -14.402594566345210000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+end

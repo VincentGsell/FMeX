@@ -9,6 +9,12 @@
         <Projects Include="StressCube\FMeXCubeExpl.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Loader\ProjectLoader.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Grapher\ProjectGrapherDemo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +41,32 @@
     <Target Name="FMeXCubeExpl:Make">
         <MSBuild Projects="StressCube\FMeXCubeExpl.dproj" Targets="Make"/>
     </Target>
+    <Target Name="ProjectLoader">
+        <MSBuild Projects="Loader\ProjectLoader.dproj"/>
+    </Target>
+    <Target Name="ProjectLoader:Clean">
+        <MSBuild Projects="Loader\ProjectLoader.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectLoader:Make">
+        <MSBuild Projects="Loader\ProjectLoader.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ProjectGrapherDemo">
+        <MSBuild Projects="Grapher\ProjectGrapherDemo.dproj"/>
+    </Target>
+    <Target Name="ProjectGrapherDemo:Clean">
+        <MSBuild Projects="Grapher\ProjectGrapherDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectGrapherDemo:Make">
+        <MSBuild Projects="Grapher\ProjectGrapherDemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl"/>
+        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean"/>
+        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make"/>
+        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

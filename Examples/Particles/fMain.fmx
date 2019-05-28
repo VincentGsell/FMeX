@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 575
-  ClientWidth = 728
+  ClientHeight = 728
+  ClientWidth = 897
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -13,8 +13,8 @@ object Form1: TForm1
     Camera = Camera1
     Position.X = 8.000000000000000000
     Position.Y = 8.000000000000000000
-    Size.Width = 689.000000000000000000
-    Size.Height = 545.000000000000000000
+    Size.Width = 825.000000000000000000
+    Size.Height = 673.000000000000000000
     Size.PlatformDefault = False
     UsingDesignCamera = False
     OnMouseWheel = Viewport3D1MouseWheel
@@ -54,10 +54,10 @@ object Form1: TForm1
     GripSize = 3.000000000000000000
     HideSelection = False
     Proportional = False
-    Position.X = 10.000000000000000000
-    Position.Y = 18.000000000000000000
+    Position.X = 34.000000000000000000
+    Position.Y = 58.000000000000000000
     Size.Width = 215.000000000000000000
-    Size.Height = 143.000000000000000000
+    Size.Height = 199.000000000000000000
     Size.PlatformDefault = False
     ShowHandles = True
     object Rectangle1: TRectangle
@@ -77,8 +77,8 @@ object Form1: TForm1
       Fill.Gradient.StopPosition.Y = 0.000000000000000000
       HitTest = False
       Position.X = 1.000000000000000000
-      Size.Width = 209.000000000000000000
-      Size.Height = 137.000000000000000000
+      Size.Width = 208.000000000000000000
+      Size.Height = 190.000000000000000000
       Size.PlatformDefault = False
       object Label1: TLabel
         StyledSettings = [Size, FontColor]
@@ -157,6 +157,24 @@ object Form1: TForm1
         TextSettings.HorzAlign = Center
         Text = 'Label1'
         TabOrder = 6
+      end
+      object cbMyImageWallRotation: TCheckBox
+        Position.X = 24.000000000000000000
+        Position.Y = 126.000000000000000000
+        Size.Width = 153.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 7
+        Text = 'Rotate MyImageWall'
+      end
+      object cbRotateProxy: TCheckBox
+        Position.X = 24.000000000000000000
+        Position.Y = 150.000000000000000000
+        Size.Width = 161.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 8
+        Text = 'Rotate Proxy control'
       end
     end
   end
@@ -6600,12 +6618,12 @@ object Form1: TForm1
       582C168BC562B1582C168BC562B1582C168BC562B1582C168BC562B1582C168B
       C562B1582C168BC562B158EE29C0FF0FA5E732B84091CB7A0000000049454E44
       AE426082}
-    Left = 64
-    Top = 152
+    Left = 48
+    Top = 352
   end
   object TimerStats: TTimer
     OnTimer = TimerStatsTimer
-    Left = 64
-    Top = 208
+    Left = 48
+    Top = 472
   end
 end

@@ -4,7 +4,7 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   fmain in 'fmain.pas' {Form1},
-  FMeX.Types3D in '..\..\..\..\..\2017\_R&D\FMEX\FMeX_old2016\Sources\FMeX.Types3D.pas';
+  FMeX.Types3D in '..\..\Sources\FMeX.Types3D.pas';
 
 {$R *.res}
 
