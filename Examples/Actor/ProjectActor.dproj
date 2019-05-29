@@ -300,13 +300,11 @@
             <Form>Form7</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="..\..\FMeX.Types3D.pas"/>
-        <DCCReference Include="..\..\FMeX.Types3D.MD2.pas"/>
-        <DCCReference Include="..\..\FMeX.Types3D.ActorModels.pas"/>
-        <DCCReference Include="..\..\..\..\..\glscene-code-6639-branches-GLScene_FMX\glscene-code-6639-branches-GLScene_FMX\Source\FileMD2.pas"/>
-        <DCCReference Include="..\..\..\..\..\glscene-code-6639-branches-GLScene_FMX\glscene-code-6639-branches-GLScene_FMX\Source\GLS.VectorGeometry.pas"/>
-        <DCCReference Include="..\..\..\..\..\glscene-code-6639-branches-GLScene_FMX\glscene-code-6639-branches-GLScene_FMX\Source\GLS.VectorTypes.pas"/>
-        <DCCReference Include="..\..\..\..\..\glscene-code-6639-branches-GLScene_FMX\glscene-code-6639-branches-GLScene_FMX\Source\TypesMD2.pas"/>
+        <DCCReference Include="..\..\..\Gx\Gx.Graph.Types.pas"/>
+        <DCCReference Include="..\..\..\Gx\Gx.Types.pas"/>
+        <DCCReference Include="..\..\Sources\FMeX.Types3D.ActorModels.pas"/>
+        <DCCReference Include="..\..\Sources\FMeX.Types3D.pas"/>
+        <DCCReference Include="..\..\Sources\FMeX.FileFormat3D.MD2.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -407,6 +405,12 @@
                 </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgsqlite3.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\ProjectActor.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>ProjectActor.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -3,17 +3,31 @@ unit fmActor;
 interface
 
 uses
-  System.SysUtils, System.Types, System.Variants, System.UITypes,
-  System.Classes, FMX.Types, FMX.Dialogs, FMX.Types3D, FMX.Forms,
-  FMX.Forms3D, FMX.Controls3D, FMX.Graphics, FMX.StdCtrls, FMX.MaterialSources,
-  {$IFDEF DELPHIXE5}
-  FMX.Forms3D, FMX.Controls3D, FMX.Graphics, FMX.StdCtrls, FMX.MaterialSources,
-  {$ENDIF}
-  FMX.Controls, FMX.Layers3D,
+  System.SysUtils,
+  System.Types,
+  System.Variants,
+  System.UITypes,
+  System.Math.Vectors,
+  System.Classes,
+  FMX.Types,
+  FMX.Dialogs,
+  FMX.Types3D,
+  FMX.Forms,
+  FMX.Forms3D,
+  FMX.Controls3D,
+  FMX.Graphics,
+  FMX.StdCtrls,
+  FMX.MaterialSources,
+  FMX.Controls,
+  FMX.Layers3D,
+  FMX.Controls.Presentation,
+  FMX.Objects3D,
+  FMX.Materials,
+  FMX.Layouts,
+  FMX.ListBox,
   FMeX.Types3D,
-  FMX.Objects3D, FMX.Materials, FMX.Layouts, FMX.ListBox,
-  FMeX.Types3D.ActorModels, FMeX.Types3D.MD2, System.Math.Vectors,
-  FMX.Controls.Presentation;
+  FMeX.Types3D.ActorModels,
+  FMeX.FileFormat3D.MD2;
 
 type
   TForm7 = class(TForm3D)
@@ -97,7 +111,7 @@ begin
       c.MaterialSource := LightMaterialSource1;
     end;
     Current := c;
-    ListBox1.Items.Text := c.ModelRessource.FrameText;
+//    ListBox1.Items.Text := c.ModelRessource.FrameText;
   end;
 end;
 
@@ -112,25 +126,22 @@ var
   c: TFMeXActor;
   ff : string;
 begin
-  if true then
+  ff := '..\..\Media\Warrior\warrior.md2';
+  c := TFMeXActor.Create(nil);
+  b :=TFMeXModelRessourceMD2.Create;
+  b.LoadFromFile(ff);
+  c.ModelRessource := b;
+  c.Scale.X := 0.1;
+  c.Scale.Y := 0.1;
+  c.Scale.Z := 0.1;
+  c.DrawFrameType := IHMToDrawType;
+  AddObject(c);
+  if Not(Assigned(c.MaterialSource)) then
   begin
-    ff := '..\..\Media\Warrior\warrior.md2';
-    c := TFMeXActor.Create(nil);
-    b :=TFMeXModelRessourceMD2.Create;
-    b.LoadFromFile(ff);
-    c.ModelRessource := b;
-    c.Scale.X := 0.1;
-    c.Scale.Y := 0.1;
-    c.Scale.Z := 0.1;
-    c.DrawFrameType := IHMToDrawType;
-    AddObject(c);
-    if Not(Assigned(c.MaterialSource)) then
-    begin
-      c.MaterialSource := LightMaterialSource1;
-    end;
-    Current := c;
-    ListBox1.Items.Text := c.ModelRessource.FrameText;
+    c.MaterialSource := LightMaterialSource1;
   end;
+  Current := c;
+//    ListBox1.Items.Text := c.ModelRessource.FrameText;
 end;
 
 procedure TForm7.Form3DMouseDown(Sender: TObject; Button: TMouseButton;
@@ -187,8 +198,8 @@ procedure TForm7.ListBox1Change(Sender: TObject);
 begin
   if ListBox1.ItemIndex>-1 then
   begin
-    Current.ModelRessource.GetFrame(Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart,Current.Data);
-    Label2.Text := IntToStr(Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameCount)+' frame(s)';
+//    Current.ModelRessource.GetFrame(Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart,Current.Data);
+//    Label2.Text := IntToStr(Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameCount)+' frame(s)';
     Current.Repaint;
   end;
 end;
@@ -215,9 +226,9 @@ begin
     ListBox1.Enabled := false;
     Button1.Enabled := False;
     Button2.Text := 'Stop';
-    anim_start := Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart;
+//    anim_start := Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart;
     anim_current := anim_start;
-    anim_end := Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart + Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameCount-1;
+//    anim_end := Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart + Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameCount-1;
     TimerAnim.Enabled := True;
   end;
 end;
@@ -228,7 +239,7 @@ begin
   begin
     if Texture.IsChecked then
     begin
-      Current.MaterialSource := Current.ModelRessource.Material;
+//      Current.MaterialSource := Current.ModelRessource.Material;
     end
     else
     begin
@@ -239,8 +250,8 @@ end;
 
 procedure TForm7.TimerAnimTimer(Sender: TObject);
 begin
-  Current.ModelRessource.GetFrame(anim_current,Current.Data);
-  Current.Repaint;
+//  Current.ModelRessource.GetFrame(anim_current,Current.Data);
+//  Current.Repaint;
   anim_current := anim_current + 0.1;
   if Trunc(anim_current) >= Trunc(anim_end) then
     anim_current := anim_start;
