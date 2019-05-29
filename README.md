@@ -13,7 +13,7 @@ FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage p
 - Rod and pipe 3d Mesh
 - [Angus Johnson's](http://www.angusj.com) clipper, for base 2d extruder. (Used as a base lib.)
 
-##Dependancy : 
+## Dependancy : 
 
 - GS.Core
 - Gx
@@ -24,6 +24,7 @@ FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage p
 Attempt to replace the OBJ FMX loader which has some problem for loading large file (perf(!) and materials behaviour)
 
 ![Alt text](/img/Chalet.png?raw=true "Photogrammetry file")
+
 ![Alt text](/img/Ramses.png?raw=true "huge model")
 
 ### Spine Loader (Work in progress)
