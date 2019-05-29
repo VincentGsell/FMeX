@@ -239,7 +239,7 @@ begin
   begin
     if Texture.IsChecked then
     begin
-//      Current.MaterialSource := Current.ModelRessource.Material;
+      Current.MaterialSource := TextureMaterialSource1;
     end
     else
     begin

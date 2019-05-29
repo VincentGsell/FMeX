@@ -84,7 +84,7 @@ Type
   EndOfFile  :integer;
  end;
 
- TSkinName =array[0..63] of char;
+ TSkinName =array[0..63] of ansichar;
  TSkinNames=array[0..31] of TSkinName;
 
  TMap=record u,v:smallint end;
@@ -403,7 +403,6 @@ Procedure TFMeXModelRessourceMD2.BuildMesh(aData : TMeshData);
  var
   i,vIndex,vIndexMax:integer;
   aFace : TFace;
-  c : Integer;
  begin
     aData.VertexBuffer.Length := InternalObject.FacesO.Count * 3;
     aData.IndexBuffer.Length := InternalObject.FacesO.Count * 3;
@@ -414,43 +413,29 @@ Procedure TFMeXModelRessourceMD2.BuildMesh(aData : TMeshData);
     begin
         aFace := TFace(InternalObject.FacesO[i]);
 
-{
-
-      A := Triangle.VertexIndex[2];
-      B := Triangle.VertexIndex[1];
-      C := Triangle.VertexIndex[0];
-      A_S := TextureCoords[Triangle.TextureCoordIndex[2]][0] / Header.SkinWidth;
-      A_T := TextureCoords[Triangle.TextureCoordIndex[2]][1] / Header.SkinHeight;
-      B_S := TextureCoords[Triangle.TextureCoordIndex[1]][0] / Header.SkinWidth;
-      B_T := TextureCoords[Triangle.TextureCoordIndex[1]][1] / Header.SkinHeight;
-      C_S := TextureCoords[Triangle.TextureCoordIndex[0]][0] / Header.SkinWidth;
-      C_T := TextureCoords[Triangle.TextureCoordIndex[0]][1] / Header.SkinHeight;
-
-
-}
-        c := 45;
-
         aData.VertexBuffer.Vertices[vIndex] := Point3d(aFace.a.x,aFace.a.y,aFace.a.z);
         //if vIndex in [c,c+1] then
-          aData.VertexBuffer.TexCoord0[aFace.a.sx] := PointF(aFace.uu1,aFace.vv1);
+         aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu1,aFace.vv1);
         aData.IndexBuffer[vIndex] := vIndex;
         vIndex := vIndex + 1;
         vIndexMax := vIndexMax - 1;
         aData.VertexBuffer.Vertices[vIndex] := Point3d(aFace.b.x,aFace.b.y,aFace.b.z);
         //if vIndex in [c,c+1] then
-          aData.VertexBuffer.TexCoord0[aFace.a.sy] := PointF(aFace.uu2,aFace.vv2);
+          aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu2,aFace.vv2);
         aData.IndexBuffer[vIndex] := vIndex;
         vIndex := vIndex + 1;
         vIndexMax := vIndexMax - 1;
         aData.VertexBuffer.Vertices[vIndex] := Point3d(aFace.c.x,aFace.c.y,aFace.c.z);
         //if vIndex in [c,c+1] then
-          aData.VertexBuffer.TexCoord0[aFace.a.sx] := PointF(aFace.uu3,aFace.vv3);
+          aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu3,aFace.vv3);
         aData.IndexBuffer[vIndex] := vIndex;
         vIndex := vIndex + 1;
         vIndexMax := vIndexMax - 1;
     end;
-    aData.CalcFaceNormals;
 
+    { TODO : remove duplicates vertex }
+
+    aData.CalcFaceNormals;
 end;
 
 Procedure TFMeXModelRessourceMD2.BuildAnimList(aString : TStrings);
@@ -467,8 +452,8 @@ end;
 
 Procedure TFMeXModelRessourceMD2.LoadFromFile(aMD2File : String; Const aTextureFile : string = '');
 begin
- MD2File:=TMD2File.Create(aMD2File);
- LoadMD2(amd2File,aTextureFile,'',MD2File,InternalObject);
+   MD2File:=TMD2File.Create(aMD2File);
+   LoadMD2(amd2File,aTextureFile,'',MD2File,InternalObject);
 End;
 
 Constructor TFMeXModelRessourceMD2.Create;
