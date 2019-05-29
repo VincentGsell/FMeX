@@ -6,9 +6,12 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms3D, FMX.Types3D, FMX.Forms, FMX.Graphics,
   FMX.Dialogs, FMX.MaterialSources,
-  FMeX.Ticks, FMeX.Animation,
-  FMeX.TileScrolling, System.Math.Vectors, FMX.Controls3D, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.Objects, FMX.Layers3D;
+  System.Math.Vectors, FMX.Controls3D, FMX.StdCtrls,
+  FMX.Controls.Presentation, FMX.Objects, FMX.Layers3D,
+  FMeX.Graph,
+  FMeX.Ticks,
+  FMeX.Animation,
+  FMeX.TileScrolling;
 
 type
   TForm5 = class(TForm3D)
@@ -20,6 +23,8 @@ type
   private
     { Private declarations }
   public
+    LocalProxy : TFMeXProxy;
+    LocalGraph : TFMeXGraphFor2D;
     Scroller : TTileScrolling;
     Mover,Mover2 : TLinearTileScrollingLayerMover;
     Procedure MyAppIdle(Sender : TObject; Var Done : Boolean);
@@ -39,16 +44,24 @@ procedure TForm5.Form3DCreate(Sender: TObject);
 var myLayer : TScrollingLayer;
     myChunk : TScrollingChunck;
 begin
-  Scroller :=  TTileScrolling.Create(nil);
-  Scroller.Parent := self;
+  Scroller :=  TTileScrolling.Create;
+
+  LocalProxy := TFMeXProxy.Create(nil);
+
+  //Ask for a simple 2d graph : simple Object list, rendered sequentialy.
+  LocalGraph := TFMeXGraphFor2D.Create(nil);
+  LocalProxy.Graph := LocalGraph;
+
+  LocalGraph.add(Scroller);
+
+  LocalProxy.Parent := Self;
 
 ///  Uncomment above to make your own scroller.
 ///  --> Scroller object create for convenience purpose defaut "hello world"
 
-
 { TODO : CLARIFY }
 
-  myLayer := TScrollingLayer.Create;
+
   myChunk :=  TScrollingChunck.Create(nil);
   myChunk.SideX := 3;
   myChunk.SideY := 3;
@@ -56,8 +69,11 @@ begin
   myChunk.DebugMode := true;
   myChunk.DebugChunckColor := TAlphaColorRec.Azure;
 
+  myLayer := TScrollingLayer.Create;
   myLayer.Add(myChunk);
-  Scroller.AddLayer(myLayer);
+
+  //SCroller has, by default, a default layer (Layer index 0) : this is already loaded by a standart Chunk.
+  Scroller.AddLayer(myLayer); //A second one.
   //Animation.
   Mover := TLinearTileScrollingLayerMover.Create;
   Mover.TileScrolling := Scroller;

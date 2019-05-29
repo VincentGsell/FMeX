@@ -4,10 +4,13 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.Objects, FMeX.Animation,
-  FMeX.Images,
-  Generics.Collections, FMex.Types3D, FMX.Types3D, FMX.Materials,
-  FMX.Graphics,FMX.Controls3D, FMX.MaterialSources, System.Math.Vectors;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.Objects,
+  Generics.Collections, FMX.Types3D, FMX.Materials,
+  FMX.Graphics,FMX.Controls3D, FMX.MaterialSources, System.Math.Vectors,
+  FMeX.Animation,
+  FMeX.Gx.Types,
+  FMex.Types3D,
+  FMeX.Images;
 
 
 type
@@ -46,7 +49,7 @@ type
   TScrollingLayer = Class(TList<TScrollingChunck>)
   End;
 
-  TTileScrolling = Class(TFMeXControl3d)
+  TTileScrolling = Class(TeMesh3D)
   Private
     Ver : TVertexBuffer;
     Mat : TColorMaterial;
@@ -63,13 +66,13 @@ type
     function GetLayerCount: Cardinal;
     procedure SetLayer(Index: Cardinal; const Value: TScrollingLayer);
   Public
-    Procedure Render; Override;
+    Procedure Render(acontext : TContext3D; const aFXMControl : TControl3d = nil); Override;
 
     //Move all chunk of a given layer.
     Procedure LayerOffsetMoveBy(LayerIndex : Cardinal; MoveByValueX, MoveByValueY : Single);
     Procedure LayerOffsetReset(LayerIndex : Cardinal; ValueX, ValueY : Single);
 
-    Constructor Create(aOwner : TComponent); Override;
+    Constructor Create; Override;
     Destructor Destroy; Override;
 
     Procedure AddLayer(aLayer : TScrollingLayer);
@@ -146,7 +149,7 @@ begin
   Result := a;
 end;
 
-constructor TTileScrolling.Create(aOwner: TComponent);
+constructor TTileScrolling.Create;
 var a : TScrollingLayer;
 begin
   inherited;
@@ -156,12 +159,10 @@ begin
   MatDebug := TColorMaterial.Create;
   MatDebug.Color := TAlphaColorRec.Red;
   Idx := TIndexBuffer.Create(6);
-  ZWrite := True;
-  TwoSide := True;
 
   FLayerList :=TList<TSCrollingLayer>.Create;
   a := TScrollingLayer.Create;
-  a.Add(TScrollingChunck.Create(Self));
+  a.Add(TScrollingChunck.Create(nil));
   FLayerList.Add(a);
 
   Width := 1;
@@ -255,7 +256,7 @@ begin
   end;
 end;
 
-procedure TTileScrolling.Render;
+procedure TTileScrolling.Render(acontext : TContext3D; const aFXMControl : TControl3d = nil);
 var l,c,i,j : Integer;
     la : TScrollingLayer;
     s : TScrollingChunck;
@@ -306,14 +307,14 @@ begin
 
               if Assigned(FTM) then
               begin
-                Context.DrawTriangles(Ver, Idx, ftm.Material, AbsoluteOpacity);
+                acontext.DrawTriangles(Ver, Idx, ftm.Material, 1.0);
               end
               else
-                Context.DrawTriangles(Ver, Idx, Mat, AbsoluteOpacity);
+                acontext.DrawTriangles(Ver, Idx, Mat, 1.0);
 
               if s.DebugMode then
               begin
-                Context.DrawLines(Ver, Idx, MatDebug, AbsoluteOpacity);
+                acontext.DrawLines(Ver, Idx, MatDebug, 1.0);
               end;
             end;
 
@@ -392,7 +393,7 @@ begin
     if Assigned(FTileScrolling) then
     begin
       FTileScrolling.LayerOffsetReset(FLayerIndex,FPosStop.X,FPosStop.Y);
-      FTileScrolling.Repaint;
+      //FTileScrolling.Repaint;
     end;
     //Trig something ?
     case AnimationControlTypeAtEnd of
@@ -405,7 +406,7 @@ begin
       begin
         FTileScrolling.LayerOffsetReset(FLayerIndex,FPosStart.X,FPosStart.Y);
         FTotalTimeEllapsed := 0;
-        FTileScrolling.Repaint;
+        //FTileScrolling.Repaint;
       end;
       ofacInOutLoop :
       begin
@@ -437,7 +438,7 @@ begin
     begin
       FTileScrolling.LayerOffsetReset(FLayerIndex,FPosStart.X,FPosStart.Y);
       FTileScrolling.LayerOffsetMoveBy(FLayerIndex,a,b);
-      FTileScrolling.Repaint;
+      //FTileScrolling.Repaint;
     end;
   end;
 end;

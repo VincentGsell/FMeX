@@ -71,3 +71,7 @@ Binaries
 modules/
 *.vsd
 *.pdn
+Examples/Particles/FMeXParticlesExpl.identcache
+Examples/FMeXExplProjectGroup.groupproj.local
+Examples/FMeXExplProjectGroup.groupproj.local
+*.local

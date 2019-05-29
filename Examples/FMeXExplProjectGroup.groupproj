@@ -18,6 +18,12 @@
         <Projects Include="Spine\SpineExpl.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Actor\ProjectActor.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Scroll\ScrollExpl.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -71,14 +77,32 @@
     <Target Name="SpineExpl:Make">
         <MSBuild Projects="Spine\SpineExpl.dproj" Targets="Make"/>
     </Target>
+    <Target Name="ProjectActor">
+        <MSBuild Projects="Actor\ProjectActor.dproj"/>
+    </Target>
+    <Target Name="ProjectActor:Clean">
+        <MSBuild Projects="Actor\ProjectActor.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectActor:Make">
+        <MSBuild Projects="Actor\ProjectActor.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ScrollExpl">
+        <MSBuild Projects="Scroll\ScrollExpl.dproj"/>
+    </Target>
+    <Target Name="ScrollExpl:Clean">
+        <MSBuild Projects="Scroll\ScrollExpl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ScrollExpl:Make">
+        <MSBuild Projects="Scroll\ScrollExpl.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl"/>
+        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl;ProjectActor;ScrollExpl"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean"/>
+        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean;ProjectActor:Clean;ScrollExpl:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make"/>
+        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make;ProjectActor:Make;ScrollExpl:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
