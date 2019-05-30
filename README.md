@@ -1,6 +1,6 @@
 # FMeX
 
-FMeX (aka Delphi FMX Extended) is a collection of class which aimd to leverage performance and usability of FMX library.
+FMeX (or Delphi FMX Extended) is a set of classes designed to optimize the performance and usability of the FMX library.
 
 ## Main features
 - Introduces TeCustomMesh, with "MergeFrom" method, for merging FMeX Mesh together into on and single Mesh. (Draw Call optimization)
