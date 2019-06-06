@@ -75,7 +75,7 @@ begin
       OriginCube.MaterialSource := LightMaterialSource1;
     end;
 
-    FMeXLoadRawOBJ(OpenDialog1.FileName,TeCustomMesh(originCube));
+    FMeXLoadRawOBJex(OpenDialog1.FileName,TeCustomMesh(originCube));
   end;
 end;
 
