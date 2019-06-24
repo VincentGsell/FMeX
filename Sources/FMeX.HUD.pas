@@ -8,6 +8,7 @@ uses Classes, System.Math.Vectors, Sysutils,
      System.UITypes,
      FMX.Types3D,
      FMX.Controls3D,
+     FMX.Objects3D,
      FMX.Controls,
      FMX.Objects,
      FMeX.Images;
@@ -102,7 +103,7 @@ Published
   Property ReferenceObject : TControl3d read FReference Write FReference;
 End;
 
-THudControlerComponent = Class(TControl3D)
+THudControlerComponent = Class(TDummy)
 Public
   Hud : THudControler;
   Procedure Render; Override;
@@ -420,7 +421,7 @@ begin
             if FReference.RayCastIntersect(RayPos,RayDir,I) then
             begin
               I := TPoint3D(FReference.LocalToAbsoluteVector(I));
-              //I.Z := ab.Position.Z; //Save Z.
+              I.Z := ab.Position.Z; //Save Z.
               ab.Position.Point := I; //FDragDropHoldData_TargetMouseDownPos + (I-FDragDropHoldData_TargetIntersectionPos);
             end
           end
@@ -433,7 +434,7 @@ begin
             if RayCastPlaneIntersect(RayPos,RayDir,TPoint3D.Create(0, 0, 0), TPoint3D.Create(0,0, -1), I) then
             begin
               I := TPoint3D(ab.LocalToAbsoluteVector(I));
-              //I.Z := a.Target.Position.Z; //Save Z.
+              I.Z := ab.Position.Z; //Save Z.
               ab.Position.Point := I; //FDragDropHoldData_TargetMouseDownPos + (I-FDragDropHoldData_TargetIntersectionPos);
             end;
           end;
@@ -661,7 +662,7 @@ begin
 
         a.Left := p.X-a.Width/2 + a.Offset.X;
         a.Top := p.Y-a.Height/2 + a.Offset.Y;
-        //aContext.DrawRect(point3d(p.X-5,p.Y-5,0),point3d(p.X+5,p.Y+5,0),1.0,TAlphaColorRec.Green);
+//        aContext.DrawRect(point3d(p.X-5,p.Y-5,0),point3d(p.X+5,p.Y+5,0),1.0,TAlphaColorRec.Green);
       end;
     end;
   end;
@@ -713,7 +714,6 @@ begin
   a.B := aHudShape;
   HudLinks.Add(a);
   aHudShape.HudLinks.Add(a);
-
   a.Process(Self);
 end;
 
