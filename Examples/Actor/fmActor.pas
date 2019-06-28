@@ -111,7 +111,8 @@ begin
       c.MaterialSource := LightMaterialSource1;
     end;
     Current := c;
-//    ListBox1.Items.Text := c.ModelRessource.FrameText;
+
+    ListBox1.Items.Assign(c.Frames);
   end;
 end;
 
@@ -129,7 +130,9 @@ begin
   ff := '..\..\Media\Warrior\warrior.md2';
   c := TFMeXActor.Create(nil);
   b :=TFMeXModelRessourceMD2.Create;
-  b.LoadFromFile(ff);
+  b.LoadFromFile(ff,'..\..\Media\Warrior\warrior.jpg');
+  TextureMaterialSource1.Texture.LoadFromFile('..\..\Media\Warrior\warrior.jpg');
+  c.MaterialSource := TextureMaterialSource1;
   c.ModelRessource := b;
   c.Scale.X := 0.1;
   c.Scale.Y := 0.1;
@@ -141,7 +144,7 @@ begin
     c.MaterialSource := LightMaterialSource1;
   end;
   Current := c;
-//    ListBox1.Items.Text := c.ModelRessource.FrameText;
+  ListBox1.Items.Assign(c.Frames);
 end;
 
 procedure TForm7.Form3DMouseDown(Sender: TObject; Button: TMouseButton;
@@ -200,6 +203,7 @@ begin
   begin
 //    Current.ModelRessource.GetFrame(Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameIndexStart,Current.Data);
 //    Label2.Text := IntToStr(Current.ModelRessource.Frames[ListBox1.ItemIndex].FrameCount)+' frame(s)';
+    Current.CurrentFrame := ListBox1.ItemIndex;
     Current.Repaint;
   end;
 end;
@@ -250,7 +254,7 @@ end;
 
 procedure TForm7.TimerAnimTimer(Sender: TObject);
 begin
-//  Current.ModelRessource.GetFrame(anim_current,Current.Data);
+//  Current.CurrentFrame := .GetFrame(anim_current,Current.Data);
 //  Current.Repaint;
   anim_current := anim_current + 0.1;
   if Trunc(anim_current) >= Trunc(anim_end) then

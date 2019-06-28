@@ -60,29 +60,45 @@ const
 {$R *.fmx}
 
 procedure TForm21.Button1Click(Sender: TObject);
+const exts : array[0..3] of string = ('.jpg','.png','.pcx','.bmp');
+var onlyFileNameAndPathWithoutExt : string;
+    i : integer;
+
+  function removeExt(aFileName : string) : string;
+  begin
+    result := aFileName;
+    if Pos('.',aFileName)>0 then
+      Result := Copy(aFileName,1,Pos('.',aFileName)-1);
+  end;
 begin
   if OpenDialog1.Execute then
   begin
     Assert(lowerCase(ExtractFileExt(OpenDialog1.FileName)) = '.obj');
-    if ExtractFileName(OpenDialog1.FileName) = 'chalet.obj' then //Yes : Material not handling yet ;)
-    begin
-      TextureMaterialSource1.Texture.LoadFromFile(ExtractFilePath(OpenDialog1.FileName)+'chalet.jpg');
-      OriginCube.MaterialSource := TextureMaterialSource1;
-    end
-    else
-    begin
-      TextureMaterialSource1.Texture.SetSize(0,0);
-      OriginCube.MaterialSource := LightMaterialSource1;
-    end;
+    TextureMaterialSource1.Texture.SetSize(0,0);
+    OriginCube.MaterialSource := LightMaterialSource1;
 
+    onlyFileNameAndPathWithoutExt := lowerCase(ExtractFilePath(OpenDialog1.FileName) +
+                                     lowerCase(removeExt(ExtractFileName(OpenDialog1.FileName))));
+    //Sometimes, there are no Mat file given in obj file : it the case with chalet.obj example.
+    for I := 0 to Length(exts)-1 do
+      if FileExists(onlyFileNameAndPathWithoutExt+exts[i]) then
+      begin
+        TextureMaterialSource1.Texture.LoadFromFile(onlyFileNameAndPathWithoutExt+exts[i]);
+        OriginCube.MaterialSource := TextureMaterialSource1;
+        break;
+      end;
+
+    //Direct reading one (Not remove duplicate vertices.)
     FMeXLoadRawOBJex(OpenDialog1.FileName,TeCustomMesh(originCube));
+    //loading with removing duplicate vertices. (slower, but better)
+    //FMeXLoadRawOBJ(OpenDialog1.FileName,TeCustomMesh(originCube));
   end;
 end;
 
 procedure TForm21.Form3DCreate(Sender: TObject);
 begin
   OriginCube := TeCube.Create(Self);
-  OriginCube.MaterialSource := LightMaterialSource1;
+  OriginCube.MaterialSource := TextureMaterialSource1;
   AddObject(OriginCube);
   OriginCube.DrawOverlapShape := false;
 end;
@@ -103,13 +119,13 @@ begin
   end;
   if (ssRight in Shift) then
   begin
-    DummyX.Position.X := DummyX.Position.X - ((X - FDown.X) * 0.02);
-    DummyY.Position.Y := DummyY.Position.Y - ((Y - FDown.Y) * 0.02);
+//    DummyX.Position.X := DummyX.Position.X - ((X - FDown.X) * 0.02);
+//    DummyY.Position.Y := DummyY.Position.Y - ((Y - FDown.Y) * 0.02);
 
-    DummyX.Position.Y := DummyY.Position.Y;
-    DummyY.Position.X := DummyX.Position.X;
+//    DummyX.Position.Y := DummyY.Position.Y;
+//    DummyY.Position.X := DummyX.Position.X;
   end;
-    FDown := PointF(X, Y);
+  FDown := PointF(X, Y);
 end;
 
 procedure TForm21.DoZoom(aIn: Boolean);

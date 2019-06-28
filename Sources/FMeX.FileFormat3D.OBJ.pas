@@ -810,7 +810,6 @@ begin
       CloseFile(LFile);
     end;
 
-
    if RecalNormals then
      aMesh.Data.CalcFaceNormals;
 

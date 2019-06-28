@@ -150,8 +150,11 @@ Type
    Procedure SetRessource(Value : TFMexModelRessource);
    Procedure SetCurrentFrame(Value : Integer);
  Public
-   Property FramesAvailable : TStrings read FAnim;
-   Property CurrentFrame : Integer read FCurrentFrame WRite SetCurrentFrame;
+   constructor Create(AOwner: TComponent); override;
+   destructor destroy; Override;
+
+   Property Frames : TStrings read FAnim;
+   Property CurrentFrame : Integer read FCurrentFrame Write SetCurrentFrame;
 
    Property ModelRessource : TFMexModelRessource read FRessource Write SetRessource;
  End;
@@ -236,26 +239,28 @@ begin
         tw := OBJ.texture.Width;
         th := OBJ.texture.Height;
 
-        f.uu1 := MD2.Maps[MD2.Faces[i].tc].u / tw;
-        f.vv1 := MD2.Maps[MD2.Faces[i].tc].v / th;
+        f.uu1 := MD2.Maps[MD2.Faces[i].ta].u / tw;
+        f.vv1 := MD2.Maps[MD2.Faces[i].ta].v / th;
         f.uu2 := MD2.Maps[MD2.Faces[i].tb].u / tw;
         f.vv2 := MD2.Maps[MD2.Faces[i].tb].v / th;
-        f.uu3 := MD2.Maps[MD2.Faces[i].ta].u / tw;
-        f.vv3 := MD2.Maps[MD2.Faces[i].ta].v / th;
-
-{        f.uu1 := MD2.Maps[MD2.Faces[i].ta].u / tw;
+        f.uu3 := MD2.Maps[MD2.Faces[i].tc].u / tw;
+        f.vv3 := MD2.Maps[MD2.Faces[i].tc].v / th;
+{
+        f.uu1 := MD2.Maps[MD2.Faces[i].ta].u / tw;
         f.uu2 := MD2.Maps[MD2.Faces[i].tb].u / tw;
         f.uu3 := MD2.Maps[MD2.Faces[i].tc].u / tw;
         f.vv1 := MD2.Maps[MD2.Faces[i].ta].v / th;
         f.vv2 := MD2.Maps[MD2.Faces[i].tb].v / th;
         f.vv3 := MD2.Maps[MD2.Faces[i].tc].v / th;
+
+
+        f.uu1:= f.u1 / tw;
+        f.vv1:= f.v1 / th;
+        f.uu2:= f.u2 / tw;
+        f.vv2:= f.v2 / th;
+        f.uu3:= f.u3 / tw;
+        f.vv3:= f.v3 / th;
 }
-//        f.uu1:= f.u1 / tw;
-//        f.vv1:= f.v1 / th;
-//        f.uu2:= f.u2 / tw;
-//        f.vv2:= f.v2 / th;
-//        f.uu3:= f.u3 / tw;
-//        f.vv3:= f.v3 / th;
       end;
 
    end;
@@ -415,19 +420,21 @@ Procedure TFMeXModelRessourceMD2.BuildMesh(aData : TMeshData);
 
         aData.VertexBuffer.Vertices[vIndex] := Point3d(aFace.a.x,aFace.a.y,aFace.a.z);
         //if vIndex in [c,c+1] then
-         aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu1,aFace.vv1);
+        aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu1,aFace.vv1);
         aData.IndexBuffer[vIndex] := vIndex;
         vIndex := vIndex + 1;
         vIndexMax := vIndexMax - 1;
+
         aData.VertexBuffer.Vertices[vIndex] := Point3d(aFace.b.x,aFace.b.y,aFace.b.z);
         //if vIndex in [c,c+1] then
-          aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu2,aFace.vv2);
+        aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu2,aFace.vv2);
         aData.IndexBuffer[vIndex] := vIndex;
         vIndex := vIndex + 1;
         vIndexMax := vIndexMax - 1;
+
         aData.VertexBuffer.Vertices[vIndex] := Point3d(aFace.c.x,aFace.c.y,aFace.c.z);
         //if vIndex in [c,c+1] then
-          aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu3,aFace.vv3);
+        aData.VertexBuffer.TexCoord0[vIndex] := PointF(aFace.uu3,aFace.vv3);
         aData.IndexBuffer[vIndex] := vIndex;
         vIndex := vIndex + 1;
         vIndexMax := vIndexMax - 1;
@@ -475,17 +482,28 @@ begin
     //FRessource.Clean; TODO.
     FRessource:= Value;
     FRessource.BuildMesh(Data);
-    //FRessource.BuildAnimList(FAnim);
-    FCurrentFrame := 0;
+    FRessource.BuildAnimList(FAnim);
+    CurrentFrame := 0;
     Repaint;
   end;
 end;
 
 Procedure TFMexActor.SetCurrentFrame(Value : Integer);
 begin
-
+  GetMD2Frame( TFMeXModelRessourceMD2(FRessource).MD2File, Value, TFMeXModelRessourceMD2(FRessource).InternalObject);
+  TFMeXModelRessourceMD2(FRessource).BuildMesh(Data);
 end;
 
+constructor TFMexActor.Create(AOwner: TComponent);
+begin
+  inherited;
+  FAnim := TStringList.Create;
+end;
+destructor TFMexActor.Destroy;
+begin
+  FreeAndNil(FAnim);
+  inherited;
+end;
 
 
 end.
