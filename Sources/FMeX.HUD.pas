@@ -218,7 +218,8 @@ end;
 //This class manage virtual link between shape.
 //in FMX, or other grah system, it is often hierarchical view : Here, it is just "link".
 //The nature af the link will determine the nature of behaviour (i.e. movement) of the shape.
-//For example, a static link will keep the same distance and ayimut between to given shape, whatever you move the first or the second.
+//For example, a static link will keep the same distance and ayimut between to given shape,
+//whatever you move the first or the second.
 THudlink = Class
 private
   FB: ThudShape;
