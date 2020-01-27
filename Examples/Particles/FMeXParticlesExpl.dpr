@@ -12,11 +12,11 @@ uses
   FMeX.Gx.Image in '..\..\Sources\FMeX.Gx.Image.pas',
   FMeX.Gx.Particles2D in '..\..\Sources\FMeX.Gx.Particles2D.pas',
   GS.ParticleEngine2D in '..\..\Sources\ThirdParts\GS.ParticleEngine2D.pas',
-  Gx.Graph.FMX in '..\..\..\Gx3D\sources\Gx.Graph.FMX.pas',
-  Gx.Graph.Types in '..\..\..\Gx3D\sources\Gx.Graph.Types.pas',
-  Gx.Types in '..\..\..\Gx3D\sources\Gx.Types.pas',
-  Gx.Graph.Elem.Rect in '..\..\..\Gx3D\sources\Gx.Graph.Elem.Rect.pas',
-  FMeX.Gx.Types in '..\..\Sources\FMeX.Gx.Types.pas';
+  FMeX.Gx.Types in '..\..\Sources\FMeX.Gx.Types.pas',
+  Gx.Types in '..\..\..\Gx\Gx.Types.pas',
+  Gx.Graph.Elem.Rect in '..\..\..\Gx\Gx.Graph.Elem.Rect.pas',
+  Gx.Graph.FMX in '..\..\..\Gx\Gx.Graph.FMX.pas',
+  Gx.Graph.Types in '..\..\..\Gx\Gx.Graph.Types.pas';
 
 {$R *.res}
 

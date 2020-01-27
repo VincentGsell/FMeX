@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2018/04/03 17:06:12.000.091,E:\DATA\2018_GRIDSYSTEM\Code\FMeX\Examples\FMeXExplProjectGroup.groupproj=C:\Users\Vincent\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj</Transaction>
+    <Transaction>2018/04/03 17:06:12.000.091,C:\Users\Vincent\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj=E:\DATA\2018_GRIDSYSTEM\Code\FMeX\Examples\FMeXExplProjectGroup.groupproj</Transaction>
   </Transactions>
 	<Default.Personality>
-		<Projects ActiveProject="E:\DATA\2019_GRIDSYSTEM\Code\FMeX\Examples\Actor\ProjectActor.dproj"/>
+		<Projects ActiveProject="E:\DATA\2019_GRIDSYSTEM\Code\FMeX\Examples\Scroll\ScrollExpl.dproj"/>
 	</Default.Personality>
 </BorlandProject>
