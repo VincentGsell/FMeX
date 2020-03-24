@@ -23,7 +23,7 @@ FMeX is compatible with Delphi 10+
 As a "learning" base, if you find this lib cool, please "star" it  ! It's free, and help to reference code, as well to make it more visible. 
 
 <p align="center">
-</img/plzstarme.png?raw=true "3d Perlin's noise">
+<img src="/img/plzstarme.png">
 </p>
 
 ## Exemples
