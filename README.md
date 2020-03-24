@@ -3,7 +3,7 @@
 FMeX (or Delphi FMX Extended) is a set of classes designed to optimize the performance and usability of the FMX library.
 
 ## History
-- 20200304 - New Perlin 3D voxel Demo
+- 20200304 - New Perlin's noise 3D "voxel" Demo (early)
 - 202003xx - MASSIVE refacto : Many demo do not work anymore : Temporay. ;)
 
 ## Main features
