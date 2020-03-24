@@ -2,23 +2,27 @@
 
 FMeX (or Delphi FMX Extended) is a set of classes designed to optimize the performance and usability of the FMX library.
 
+##History
+- 20200304 - New Perlin 3D voxel Demo
+- 202003xx - MASSIVE refacto : Many demo do not work anymore : Temporay. ;)
+
 ## Main features
 - Introduces TeCustomMesh, with "MergeFrom" method, for merging FMeX Mesh together into on and single Mesh. (Draw Call optimization)
 - FMX compatible
 - Show techniques to achieve good performance within FMX, with merging Ticks, and animation
 - Cadender, to control precise animation cadence (slow down motion, speed up, back to normal) (see Particle demo)
-- Actualy, as Particle demo show, it simplify drasticaly 2d sequence building and rendering setup.
-- Hud system (Early)
-- Spine integration.
-- Rod and pipe 3d Mesh
-- [Angus Johnson's](http://www.angusj.com) clipper, for base 2d extruder. (Used as a base lib.)
 
 ## Dependancy : 
 
 - GS.Core
-- Gx
+- Gx (TEMPORARY)
 
-## Exemple
+## Exemples
+
+### 3D Perlin's noise Demo.
+
+![Alt text](/img/VoxelsPerlin.png?raw=true "3d Perlin's noise")
+
 
 ### Obj Loader (Work in progress)
 Attempt to replace the OBJ FMX loader which has some problem for loading large file (perf(!) and materials behaviour)
