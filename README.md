@@ -3,10 +3,6 @@
 FMeX (or Delphi FMX Extended) is a set of classes designed to optimize the performance and usability of the FMX library.
 FMeX is compatible with Delphi 10+
 
-As a "learning" base, if you find this lib cool, please "star" it  ! It's free, and help to reference code, as well to make it more visible. 
-
-![Alt text](/img/plzstarme.png?raw=true "3d Perlin's noise")
-
 ## History
 - 20200304 - New Perlin's noise 3D "voxel" Demo (early)
 - 202003xx - MASSIVE refacto : Many demo do not work anymore : Temporay. ;)
@@ -21,6 +17,12 @@ As a "learning" base, if you find this lib cool, please "star" it  ! It's free, 
 
 - GS.Core
 - Gx (TEMPORARY)
+
+## Author's Note : 
+
+As a "learning" base, if you find this lib cool, please "star" it  ! It's free, and help to reference code, as well to make it more visible. 
+
+![Alt text](/img/plzstarme.png?raw=true "3d Perlin's noise")
 
 ## Exemples
 
