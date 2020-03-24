@@ -24,6 +24,9 @@
         <Projects Include="Scroll\ScrollExpl.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Voxels\ProjectVoxelsFMeX.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -95,14 +98,23 @@
     <Target Name="ScrollExpl:Make">
         <MSBuild Projects="Scroll\ScrollExpl.dproj" Targets="Make"/>
     </Target>
+    <Target Name="ProjectVoxelsFMeX">
+        <MSBuild Projects="Voxels\ProjectVoxelsFMeX.dproj"/>
+    </Target>
+    <Target Name="ProjectVoxelsFMeX:Clean">
+        <MSBuild Projects="Voxels\ProjectVoxelsFMeX.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectVoxelsFMeX:Make">
+        <MSBuild Projects="Voxels\ProjectVoxelsFMeX.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl;ProjectActor;ScrollExpl"/>
+        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl;ProjectActor;ScrollExpl;ProjectVoxelsFMeX"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean;ProjectActor:Clean;ScrollExpl:Clean"/>
+        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean;ProjectActor:Clean;ScrollExpl:Clean;ProjectVoxelsFMeX:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make;ProjectActor:Make;ScrollExpl:Make"/>
+        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make;ProjectActor:Make;ScrollExpl:Make;ProjectVoxelsFMeX:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

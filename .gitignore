@@ -78,3 +78,9 @@ Examples/FMeXExplProjectGroup.groupproj.local
 Examples/FMeXExplProjectGroup.groupproj.local
 Examples/Loader/assets/otherCopyRighted/
 *.local
+
+#projet related
+FMeX.Controls.Selections.pas
+
+
+

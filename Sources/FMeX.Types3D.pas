@@ -31,15 +31,14 @@ Protected
 
   procedure SetDrawFrameType(const Value: TeCustomMeshDrawType);
   procedure SetDrawOverlap(const Value: Boolean);
-  Procedure DrawOverlap(aContext : TContext3D); Virtual;
-  Procedure ProcessBoundingBox;
+  Procedure DrawOverlap;
 
   //Procedure InternalMergeFrom To do.
 Public
   Property Data; //Put in public -> Important : For exploitation of data from outside !
 
-  Procedure MergeFrom(aTeCustomMesh : TeCustomMesh; Const PreallocateMeshSize : Boolean = false); Overload; //Mesh + relative TeCustomMesh position
-  Procedure MergeFrom(aMesh : TMeshData; Const PreallocateMeshSize : Boolean = false); Overload; //Only Mesh coord (no relative TeCustomMesh position)
+  Procedure MergeFrom(aTeCustomMesh : TeCustomMesh; Const PreallocateMeshSize : Boolean = false; const ReCalcBoundingBox : boolean = true); Overload; //Mesh + relative TeCustomMesh position
+  Procedure MergeFrom(aMesh : TMeshData; Const PreallocateMeshSize : Boolean = false; const ReCalcBoundingBox : boolean = true); Overload; //Only Mesh coord (no relative TeCustomMesh position)
 
   constructor Create(AOwner: TComponent); override;
 
@@ -48,7 +47,7 @@ Public
   //Some component, such as texture configuration, will trig above method, if this object is registered in their own list.
   Procedure MeshNotification(Sender : TObject); Virtual; Abstract;
 
-
+  Procedure ProcessBoundingBox;
 Published
   Property DrawFrameType : TeCustomMeshDrawType read FDrawFrameType Write SetDrawFrameType;
   Property DrawOverlapShape : Boolean read FDrawOverlap Write SetDrawOverlap;
@@ -75,7 +74,6 @@ TeCube = class(TeCustomMesh)
 
   public
     constructor Create(AOwner: TComponent); override;
-//    Procedure DrawOverlap; Override;
 
     Property SideSubdivisions : Integer Write SetSideSubdivision;
     Property SideLength : Integer Write SetSideLength;
@@ -375,6 +373,7 @@ constructor TeCustomMesh.Create(AOwner: TComponent);
 begin
   inherited;
   Data.OnChanged := Nil;
+  Data.Clear;
   WrapMode := TMeshWrapMode.Resize;
   FDrawFrameType := mdtFull;
   FDrawOverlap := True;
@@ -385,17 +384,17 @@ begin
   FPreAllocatedIndexIndex := 0;
 end;
 
-procedure TeCustomMesh.DrawOverlap(aContext : TContext3D);
+procedure TeCustomMesh.DrawOverlap;
 begin
-  aContext.DrawCube( NullVector3D,
-                    Vector3D( FCurrentBoundingBox.Width,
-                              FCurrentBoundingBox.Height,
-                              FCurrentBoundingBox.Depth) / 2,
-                    AbsoluteOpacity,
-                    TAlphaColorRec.Blue);
+  Context.DrawCube( NullVector3D,
+            Vector3D( FCurrentBoundingBox.Width,
+                      FCurrentBoundingBox.Height,
+                      FCurrentBoundingBox.Depth) / 2,
+            AbsoluteOpacity,
+            TAlphaColorRec.Blue);
 end;
 
-procedure TeCustomMesh.MergeFrom(aMesh: TMeshData; Const PreallocateMeshSize : Boolean = false);
+procedure TeCustomMesh.MergeFrom(aMesh: TMeshData; Const PreallocateMeshSize : Boolean; const ReCalcBoundingBox : boolean);
 var
   I: Integer;
   iold, vold : Integer;
@@ -455,21 +454,27 @@ begin
     end;
   end;
 
-
-  //Update Bounding box.
-//  ProcessBoundingBox; //Very Cost when many merge : todo.
+  if ReCalcBoundingBox then
+    ProcessBoundingBox;
 end;
 
-procedure TeCustomMesh.MergeFrom(aTeCustomMesh: TeCustomMesh; Const PreallocateMeshSize : Boolean = false);
+procedure TeCustomMesh.MergeFrom(aTeCustomMesh: TeCustomMesh; Const PreallocateMeshSize : Boolean; const ReCalcBoundingBox : boolean);
 var
   I: Integer;
   vold : Integer;
   iold : Integer;
 begin
-  vold := Data.VertexBuffer.Length;
-  if Not PreallocateMeshSize then
+  if PreallocateMeshSize then
+  begin
+    vold := FPreAllocatedVertexIndex;
+  end
+  else
+  begin
+    vold := Data.VertexBuffer.Length;
     Data.VertexBuffer.Length := Data.VertexBuffer.Length + aTeCustomMesh.Data.VertexBuffer.Length;
-  for I := vold to Data.VertexBuffer.Length - 1 do
+  end;
+
+  for I := vold to vold + aTeCustomMesh.Data.VertexBuffer.Length - 1 do
   begin
     Data.VertexBuffer.Vertices[I] := Point3d( aTeCustomMesh.Data.VertexBuffer.Vertices[I-vold].X + aTeCustomMesh.Position.X,
                                               aTeCustomMesh.Data.VertexBuffer.Vertices[I-vold].Y + aTeCustomMesh.Position.Y,
@@ -483,13 +488,25 @@ begin
     Data.VertexBuffer.TexCoord0[I] := aTeCustomMesh.Data.VertexBuffer.TexCoord0[I-vold];
   end;
 
-  iold := Data.IndexBuffer.Length;
-  Data.IndexBuffer.Length := Data.IndexBuffer.Length + aTeCustomMesh.Data.IndexBuffer.Length;
-  for I := iold to Data.IndexBuffer.Length - 1 do
-    Data.IndexBuffer[I] := vold + aTeCustomMesh.Data.IndexBuffer[I-iold];
+  if PreallocateMeshSize then
+  begin
+    FPreAllocatedVertexIndex := FPreAllocatedVertexIndex + aTeCustomMesh.Data.VertexBuffer.Length;
+    iold := FPreAllocatedIndexIndex;
+    for I := iold to iold + aTeCustomMesh.Data.IndexBuffer.Length - 1 do
+      Data.IndexBuffer[I] := vold + aTeCustomMesh.Data.IndexBuffer[i-iold];
+    FPreAllocatedIndexIndex := FPreAllocatedIndexIndex + aTeCustomMesh.Data.IndexBuffer.Length;
+  end
+  else
+  begin
+    iold := Data.IndexBuffer.Length;
+    Data.IndexBuffer.Length := Data.IndexBuffer.Length + aTeCustomMesh.Data.IndexBuffer.Length;
+    for I := iold to Data.IndexBuffer.Length - 1 do
+      Data.IndexBuffer[I] := vold + aTeCustomMesh.Data.IndexBuffer[I-iold];
+  end;
 
   //Update Bounding box.
-  ProcessBoundingBox;
+  if ReCalcBoundingBox then
+    ProcessBoundingBox;
 end;
 
 
@@ -497,11 +514,15 @@ procedure TeCustomMesh.ProcessBoundingBox;
 begin
   Data.BoundingBoxNeedsUpdate;
   FCurrentBoundingBox := Data.GetBoundingBox;
+  FWidth := FCurrentBoundingBox.Width;
+  FHeight := FCurrentBoundingBox.Height;
+  FDepth := FCurrentBoundingBox.Depth;
 end;
 
 procedure TeCustomMesh.Render;
 begin
   Context.SetMatrix(GetMeshMatrix*AbsoluteMatrix);
+
 
   case FDrawFrameType of
     mdtFull:
@@ -521,7 +542,7 @@ begin
 
   if FDrawOverlap then
   begin
-    DrawOverlap(Context);
+    DrawOverlap;
   end;
 end;
 

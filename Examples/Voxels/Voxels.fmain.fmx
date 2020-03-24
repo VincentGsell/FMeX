@@ -1,0 +1,120 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Camera = Camera1
+  Caption = 'Form1'
+  Color = claPowderblue
+  ClientHeight = 737
+  ClientWidth = 994
+  UsingDesignCamera = False
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = Form3DCreate
+  OnMouseDown = Form3DMouseDown
+  OnMouseMove = Form3DMouseMove
+  OnMouseWheel = Form3DMouseWheel
+  DesignerMasterStyle = 0
+  object DummyXY: TDummy
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+    object DummyYZ: TDummy
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+      object DummyRoot: TDummy
+        Width = 1.000000000000000000
+        Height = 1.000000000000000000
+        Depth = 1.000000000000000000
+      end
+    end
+  end
+  object LightMaterialSource1: TLightMaterialSource
+    Diffuse = claSteelblue
+    Ambient = xFF202020
+    Emissive = claNull
+    Specular = xFF606060
+    Shininess = 30
+    Left = 480
+    Top = 352
+  end
+  object Light1: TLight
+    Color = claWhite
+    LightType = Point
+    SpotCutOff = 180.000000000000000000
+    Position.X = -50.000000000000000000
+    Position.Y = -50.000000000000000000
+    Position.Z = -50.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+  object Camera1: TCamera
+    AngleOfView = 45.000000000000000000
+    Position.Z = -40.000000000000000000
+    Width = 1.000000000000000000
+    Height = 1.000000000000000000
+    Depth = 1.000000000000000000
+  end
+  object Layer3D1: TLayer3D
+    Height = 146.000000000000000000
+    Opacity = 0.500000000000000000
+    Position.X = 94.000000000000000000
+    Position.Y = 86.000000000000000000
+    Projection = Screen
+    Resolution = 50
+    StyleLookup = 'backgroundstyle'
+    Transparency = True
+    Width = 158.000000000000000000
+    object Button1: TButton
+      Position.X = 24.000000000000000000
+      Position.Y = 96.000000000000000000
+      Size.Width = 113.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Generate'
+      OnClick = Button1Click
+    end
+    object GroupBox1: TGroupBox
+      Position.X = 16.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 89.000000000000000000
+      Size.PlatformDefault = False
+      object RadioButton1: TRadioButton
+        Tag = 8
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 8.000000000000000000
+        TabOrder = 3
+        Text = '8 pixels'
+        OnChange = RadioButton1Change
+      end
+      object RadioButton2: TRadioButton
+        Tag = 16
+        Position.X = 8.000000000000000000
+        Position.Y = 24.000000000000000000
+        TabOrder = 2
+        Text = '16 pixels'
+        OnChange = RadioButton1Change
+      end
+      object RadioButton3: TRadioButton
+        Tag = 32
+        Position.X = 8.000000000000000000
+        Position.Y = 40.000000000000000000
+        TabOrder = 1
+        Text = '32 pixels'
+        OnChange = RadioButton1Change
+      end
+      object RadioButton4: TRadioButton
+        Tag = 64
+        Position.X = 8.000000000000000000
+        Position.Y = 56.000000000000000000
+        TabOrder = 0
+        Text = '64 pixels'
+        OnChange = RadioButton1Change
+      end
+    end
+  end
+end
