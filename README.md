@@ -20,9 +20,11 @@ FMeX is compatible with Delphi 10+
 
 ## Author's Note : 
 
+<p align="center">
 As a "learning" base, if you find this lib cool, please "star" it  ! It's free, and help to reference code, as well to make it more visible. 
 
 ![Alt text](/img/plzstarme.png?raw=true "3d Perlin's noise")
+</p>
 
 ## Exemples
 
