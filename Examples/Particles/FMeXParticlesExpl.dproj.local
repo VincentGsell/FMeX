@@ -1,14 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2018/04/03 13:59:55.000.447,E:\DATA\2018_GRIDSYSTEM\Code\FMeX\Examples\Particles\fMain.fmx=C:\Users\Vincent\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
-    <Transaction>2018/04/03 14:00:14.000.065,E:\DATA\2018_GRIDSYSTEM\Code\FMeX\Examples\Particles\FMeXParticlesExpl.dproj=C:\Users\Vincent\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2019/04/26 22:50:48.000.605,E:\DATA\2019_GRIDSYSTEM\Code\FMeX\Sources\FMeX.Particles2D.pas=E:\DATA\2019_GRIDSYSTEM\Code\FMeX\Sources\FMeX.eControl.Particles2D.pas</Transaction>
-    <Transaction>2019/04/30 09:37:47.000.936,E:\DATA\2019_GRIDSYSTEM\Code\Gx3D\sources\Gx3E.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\Gx3D\sources\Gx3D.Types.pas</Transaction>
-    <Transaction>2019/05/28 11:06:20.000.121,E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.Gx.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.eControl.Types.pas</Transaction>
-    <Transaction>2019/05/28 11:07:01.000.014,E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.Gx.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.eControl.Types.pas</Transaction>
+    <Transaction>2018/04/03 13:59:55.000.447,C:\Users\Vincent\Documents\Embarcadero\Studio\Projects\Unit1.fmx=E:\DATA\2018_GRIDSYSTEM\Code\FMeX\Examples\Particles\fMain.fmx</Transaction>
+    <Transaction>2018/04/03 14:00:14.000.065,C:\Users\Vincent\Documents\Embarcadero\Studio\Projects\Project1.dproj=E:\DATA\2018_GRIDSYSTEM\Code\FMeX\Examples\Particles\FMeXParticlesExpl.dproj</Transaction>
+    <Transaction>2019/04/26 22:50:48.000.605,E:\DATA\2019_GRIDSYSTEM\Code\FMeX\Sources\FMeX.eControl.Particles2D.pas=E:\DATA\2019_GRIDSYSTEM\Code\FMeX\Sources\FMeX.Particles2D.pas</Transaction>
+    <Transaction>2019/04/30 09:37:47.000.936,E:\DATA\2019_GRIDSYSTEM\Code\Gx3D\sources\Gx3D.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\Gx3D\sources\Gx3E.Types.pas</Transaction>
+    <Transaction>2019/05/28 11:06:20.000.121,E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.eControl.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.Gx.Types.pas</Transaction>
+    <Transaction>2019/05/28 11:07:01.000.014,E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.eControl.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.Gx.Types.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
-		<NoProfile iOSSimulator="iPhone5" Android=""/>
+		<NoProfile iOSSimulator="" Android="" Android64=""/>
+		<PdevMac iOSSimulator="iPhone5" iOSDevice64=""/>
 	</ActiveMobileDevice>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="android-support-v4.dex.jar"/>
+    <File Path="cloud-messaging.dex.jar"/>
+    <File Path="fmx.dex.jar"/>
+    <File Path="google-analytics-v2.dex.jar"/>
+    <File Path="google-play-billing.dex.jar"/>
+    <File Path="google-play-licensing.dex.jar"/>
+    <File Path="google-play-services-ads-7.0.0.dex.jar"/>
+    <File Path="google-play-services-analytics-7.0.0.dex.jar"/>
+    <File Path="google-play-services-base-7.0.0.dex.jar"/>
+    <File Path="google-play-services-identity-7.0.0.dex.jar"/>
+    <File Path="google-play-services-maps-7.0.0.dex.jar"/>
+    <File Path="google-play-services-panorama-7.0.0.dex.jar"/>
+    <File Path="google-play-services-plus-7.0.0.dex.jar"/>
+    <File Path="google-play-services-wallet-7.0.0.dex.jar"/>
+    <File Path="android-support-v4.dex.jar"/>
+    <File Path="cloud-messaging.dex.jar"/>
+    <File Path="fmx.dex.jar"/>
+    <File Path="google-analytics-v2.dex.jar"/>
+    <File Path="google-play-billing.dex.jar"/>
+    <File Path="google-play-licensing.dex.jar"/>
+    <File Path="google-play-services-ads-7.0.0.dex.jar"/>
+    <File Path="google-play-services-analytics-7.0.0.dex.jar"/>
+    <File Path="google-play-services-base-7.0.0.dex.jar"/>
+    <File Path="google-play-services-identity-7.0.0.dex.jar"/>
+    <File Path="google-play-services-maps-7.0.0.dex.jar"/>
+    <File Path="google-play-services-panorama-7.0.0.dex.jar"/>
+    <File Path="google-play-services-plus-7.0.0.dex.jar"/>
+    <File Path="google-play-services-wallet-7.0.0.dex.jar"/>
+    <File Path="..\..\..\FMeX"/>
+    <File Path="..\..\Sources"/>
+    <File Path="..\..\Sources\ThirdParts"/>
+    <File Path="..\..\Sources\ThirdParts\GS.ParticleEngine2D.pas"/>
+    <File Path="..\..\Sources\FMeX.Graph.pas"/>
+    <File Path="..\..\Sources\FMeX.Gx.Image.pas"/>
+    <File Path="..\..\Sources\FMeX.Gx.Particles2D.pas"/>
+    <File Path="..\..\Sources\FMeX.Gx.Types.pas"/>
+    <File Path="..\..\Sources\FMeX.Images.pas"/>
+    <File Path="..\..\Sources\FMeX.Ticks.pas"/>
+    <File Path="..\..\Sources\FMeX.Types3D.pas"/>
+    <File Path="fMain.pas"/>
+    <File Path="fMain.fmx"/>
+  </ProjectSortOrder>
+	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>

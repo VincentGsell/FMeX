@@ -2,7 +2,7 @@ unit GS.ParticleEngine2D;
 
 interface
 
-Uses Classes, FMeX.Ticks, GS.Direction;
+Uses Classes, FMeX.Ticks, GS.Geometry.Direction;
 
 type
   TGSCustomParticleEngine2D = class;

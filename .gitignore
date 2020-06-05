@@ -77,6 +77,15 @@ Examples/FMeXExplProjectGroup.groupproj.local
 *.local
 Examples/FMeXExplProjectGroup.groupproj.local
 Examples/Loader/assets/otherCopyRighted/
+Examples/Loader/assets/scenes
+Examples/Particles/Android
+Examples/Particles/IOSDevice64
+Examples/Particles/IOSSimulator
+Examples/Particles/OSX32
+Examples/Particles/Win32
+Examples/Particles/Win64
+Examples/Particles/Linux
+Examples/PreziLike
 *.local
 
 #projet related

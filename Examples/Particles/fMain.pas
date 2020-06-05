@@ -33,6 +33,8 @@ type
     TimerStats: TTimer;
     cbMyImageWallRotation: TCheckBox;
     cbRotateProxy: TCheckBox;
+    Label2: TLabel;
+    Label7: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Grid3D1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Single; RayPos, RayDir: TVector3D);
@@ -65,9 +67,6 @@ type
     MystrawberryExplosion,
     MyMusicMouseControledParticle,
     MyRedFlowerParticle : TeParticle2d;
-
-    cycle : Cardinal;
-    mcycle : Cardinal;
 
     LocalProxy : TFMeXProxy;
     LocalGraph : TFMeXGraphFor2D;
@@ -249,8 +248,7 @@ begin
   //Change image randomly, throught available Data in atlas. -> -1)+1 in order to not display "default" picture.
    MyImageWall.SourceConfiguration.TextureItemIndex := Random(MyImageWall.SourceConfiguration.TextureData.TextureAtlasItems.Count-1)+1;
   end;
-  Label1.Text := IntToStr(cycle - mcycle) + ' FPS';
-  mcycle := cycle;
+  Label1.Text := IntToStr(TheCadencer.CallBySecond) + ' FPS';
 end;
 
 procedure TForm1.TrackBar1Tracking(Sender: TObject);
@@ -298,8 +296,6 @@ end;
 procedure TForm1.Loop;
 var lparticleClount : Integer;
 begin
-  inc(cycle);
-
   TheCadencer.Update;
 
   lparticleClount := 0;
@@ -328,7 +324,9 @@ begin
   MyPizza.ZRotate := MyPizza.ZRotate + TheCadencer.TimeSliceValue(250);
 
   Label6.Text := 'Total parcicle count : ' + IntToStr(lparticleClount);
-  Label3.Text := IntToStr(mcycle)+' cycles';
+  Label2.Text := 'Total time elapsed : ' + IntToStr(TheCadencer.TimeElapsedSinceStart) + ' ms';
+  Label7.Text := 'Call by seconds : ' + IntToStr(TheCadencer.CallBySecond);
+  Label3.Text := 'Total Calls : ' + IntToStr(TheCadencer.TotalCallSinceStart);
 
   Invalidate;
 end;

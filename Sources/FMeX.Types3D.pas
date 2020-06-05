@@ -66,7 +66,7 @@ TeCube = class(TeCustomMesh)
     procedure SetSideSubdivision(const Value: Integer);
   protected
     procedure RebuildMesh;
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330)}
+  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
     function DoRayCastIntersect(const RayPos, RayDir: TPoint3D; var Intersection: TPoint3D): Boolean; override;
   {$ELSE}
     function DoRayCastIntersect(const RayPos, RayDir: TVector3D; var Intersection: TVector3D): Boolean; override;
@@ -92,7 +92,7 @@ TeSphere = Class(TeCustomMesh)
     procedure SetRadius(const Value: Single);
   protected
     procedure RebuildMesh;
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330)}
+  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
     function DoRayCastIntersect(const RayPos, RayDir: TPoint3D; var Intersection: TPoint3D): Boolean; override;
   {$ELSE}
     function DoRayCastIntersect(const RayPos, RayDir: TVector3D; var Intersection: TVector3D): Boolean; override;
@@ -281,19 +281,19 @@ begin
   ProcessBoundingBox;
 end;
 
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330)}
+{$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
 function TeCube.DoRayCastIntersect(const RayPos, RayDir: TPoint3D; var Intersection: TPoint3D): Boolean;
 {$ELSE}
 function TeCube.DoRayCastIntersect(const RayPos, RayDir: TVector3D; var Intersection: TVector3D): Boolean;
 {$ENDIF}
 var
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330)}
+  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
   INear, IFar: TPoint3D;
 {$ELSE}
   INear, IFar: TVector3D;
 {$ENDIF}
 begin
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320)}
+  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
   Result := RayCastCuboidIntersect(RayPos, RayDir, Point3D(0,0,0), Width, Height, Depth, INear, IFar) > 0;
 {$ELSE}
   Result := RayCastCuboidIntersect(RayPos, RayDir, Vector3D(0,0,0), Width, Height, Depth, INear, IFar) > 0;
@@ -570,19 +570,19 @@ begin
   RebuildMesh;
 end;
 
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330)}
+{$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
 function TeSphere.DoRayCastIntersect(const RayPos, RayDir: TPoint3D; var Intersection: TPoint3d): Boolean;
 {$ELSE}
 function TeSphere.DoRayCastIntersect(const RayPos, RayDir: TVector3D; var Intersection: TPoint3d): Boolean;
 {$ENDIF}
 var
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330)}
+{$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
   INear, IFar: TPoint3D;
 {$ELSE}
   INear, IFar: TVector3D;
 {$ENDIF}
 begin
-  {$IF Defined(VER280) OR Defined(VER310) or Defined(VER320)}
+{$IF Defined(VER280) OR Defined(VER310) or Defined(VER320) or Defined(VER330) or Defined(VER340)}
   Result := RayCastEllipsoidIntersect(RayPos, RayDir, Point3D(0,0,0), Width/2, Height/2, Depth/2, INear, IFar) > 0;
 {$ELSE}
   Result := RayCastEllipsoidIntersect(RayPos, RayDir, Vector3D(0,0,0), Width/2, Height/2, Depth/2, INear, IFar) > 0;

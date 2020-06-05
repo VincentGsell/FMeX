@@ -22,6 +22,8 @@ object Form1: TForm1
       Marks = 4.000000000000000000
       Frequency = 1.000000000000000000
       LineColor = x50505050
+      Position.X = 0.086778640747070310
+      Position.Y = 0.237161159515380900
       Position.Z = 1.000000000000000000
       Width = 40.000000000000000000
       Height = 40.000000000000000000
@@ -55,9 +57,9 @@ object Form1: TForm1
     HideSelection = False
     Proportional = False
     Position.X = 34.000000000000000000
-    Position.Y = 58.000000000000000000
-    Size.Width = 215.000000000000000000
-    Size.Height = 199.000000000000000000
+    Position.Y = 82.000000000000000000
+    Size.Width = 223.000000000000000000
+    Size.Height = 215.000000000000000000
     Size.PlatformDefault = False
     ShowHandles = True
     object Rectangle1: TRectangle
@@ -69,7 +71,15 @@ object Form1: TForm1
         end
         item
           Color = xFF1F96F7
-          Offset = 1.000000000000000000
+          Offset = 0.562111794948577900
+        end
+        item
+          Color = xF02C9CF8
+          Offset = 0.944099366664886500
+        end
+        item
+          Color = xF72699F8
+          Offset = 0.972049713134765600
         end>
       Fill.Gradient.StartPosition.X = 0.500000000000000000
       Fill.Gradient.StartPosition.Y = 1.000000000000000000
@@ -77,8 +87,8 @@ object Form1: TForm1
       Fill.Gradient.StopPosition.Y = 0.000000000000000000
       HitTest = False
       Position.X = 1.000000000000000000
-      Size.Width = 208.000000000000000000
-      Size.Height = 190.000000000000000000
+      Size.Width = 216.000000000000000000
+      Size.Height = 209.000000000000000000
       Size.PlatformDefault = False
       object Label1: TLabel
         StyledSettings = [Size, FontColor]
@@ -109,13 +119,13 @@ object Form1: TForm1
       end
       object Label4: TLabel
         Position.X = 24.000000000000000000
-        Position.Y = 72.000000000000000000
+        Position.Y = 104.000000000000000000
         Text = 'Time'
         TabOrder = 2
       end
       object Label5: TLabel
         Position.X = 24.000000000000000000
-        Position.Y = 96.000000000000000000
+        Position.Y = 128.000000000000000000
         Text = 'Zoom'
         TabOrder = 3
       end
@@ -125,9 +135,9 @@ object Form1: TForm1
         Max = 200.000000000000000000
         Orientation = Horizontal
         Position.X = 68.000000000000000000
-        Position.Y = 72.000000000000000000
+        Position.Y = 104.000000000000000000
         Size.Width = 100.000000000000000000
-        Size.Height = 20.000000000000000000
+        Size.Height = 19.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 4
         Value = 100.000000000000000000
@@ -139,9 +149,9 @@ object Form1: TForm1
         Min = -50.000000000000000000
         Orientation = Horizontal
         Position.X = 67.000000000000000000
-        Position.Y = 95.000000000000000000
+        Position.Y = 127.000000000000000000
         Size.Width = 100.000000000000000000
-        Size.Height = 20.000000000000000000
+        Size.Height = 19.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 5
         OnTracking = TrackBar2Tracking
@@ -160,7 +170,7 @@ object Form1: TForm1
       end
       object cbMyImageWallRotation: TCheckBox
         Position.X = 24.000000000000000000
-        Position.Y = 126.000000000000000000
+        Position.Y = 158.000000000000000000
         Size.Width = 153.000000000000000000
         Size.Height = 19.000000000000000000
         Size.PlatformDefault = False
@@ -169,12 +179,36 @@ object Form1: TForm1
       end
       object cbRotateProxy: TCheckBox
         Position.X = 24.000000000000000000
-        Position.Y = 150.000000000000000000
+        Position.Y = 182.000000000000000000
         Size.Width = 161.000000000000000000
         Size.Height = 19.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 8
         Text = 'Rotate Proxy control'
+      end
+      object Label2: TLabel
+        StyledSettings = [Size, FontColor]
+        Position.X = 3.000000000000000000
+        Position.Y = 54.000000000000000000
+        Size.Width = 206.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Arial'
+        TextSettings.HorzAlign = Center
+        Text = 'Label1'
+        TabOrder = 9
+      end
+      object Label7: TLabel
+        StyledSettings = [Size, FontColor]
+        Position.X = 3.000000000000000000
+        Position.Y = 67.000000000000000000
+        Size.Width = 206.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Arial'
+        TextSettings.HorzAlign = Center
+        Text = 'Label1'
+        TabOrder = 10
       end
     end
   end

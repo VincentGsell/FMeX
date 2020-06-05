@@ -20,7 +20,10 @@ Type
     FInternalCallBySec : Cardinal;
     FMCSec : Cardinal;
     FSecFromStart : Cardinal;
+    FStartTime : Cardinal;
+    FTotalCallBySecond : Cardinal;
     function GetSystemTick: Cardinal;
+    function GetStartTime: Cardinal;
   Public
     constructor Create;
 
@@ -34,6 +37,8 @@ Type
     Property DeltaTime : Cardinal read FDeltaTime;
 
     Property CallBySecond : Cardinal read FCallBySec;
+    property TimeElapsedSinceStart : Cardinal read GetStartTime;
+    property TotalCallSinceStart : Cardinal read FTotalCallBySecond;
 
   end;
 
@@ -57,6 +62,8 @@ end;
     Inherited;
     Reset;
     FSecFromStart := 0;
+    FTotalCallBySecond := 0;
+    FStartTime := GetTickCount;
   end;
 
   function ofCadencer.TimeSliceValue(aValueToSlice: Double): Double;
@@ -77,6 +84,7 @@ end;
     begin
       FMCSec := h;
       FCallBySec := FInternalCallBySec;
+      FTotalCallBySecond := FTotalCallBySecond + FInternalCallBySec;
       FInternalCallBySec:=0;
       Inc(FSecFromStart);
     end
@@ -92,6 +100,11 @@ begin
   FLastCall := GetTickCount;
   FInternalCallBySec := 0;
   FMCSec := 0;
+end;
+
+function ofCadencer.GetStartTime: Cardinal;
+begin
+  result := GetTickCount - FStartTime;
 end;
 
 function ofCadencer.GetSystemTick: Cardinal;
