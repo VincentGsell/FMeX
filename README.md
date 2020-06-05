@@ -4,8 +4,8 @@ FMeX (or Delphi FMX Extended) is a set of classes designed to optimize the perfo
 FMeX is compatible with Delphi 10+
 
 ## History
+- 20200601 - Demos fixed and tested on mobile (10.4 (android32/Ios64)
 - 20200304 - New Perlin's noise 3D "voxel" Demo (early)
-- 202003xx - MASSIVE refacto : Many demo do not work anymore : Temporay. ;)
 
 ## Main features
 - Introduces TeCustomMesh, with "MergeFrom" method, for merging FMeX Mesh together into on and single Mesh. (Draw Call optimization)
