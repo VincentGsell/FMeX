@@ -27,6 +27,9 @@
         <Projects Include="Voxels\ProjectVoxelsFMeX.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="TriangleMesh\TriangleMeshProject.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -107,14 +110,23 @@
     <Target Name="ProjectVoxelsFMeX:Make">
         <MSBuild Projects="Voxels\ProjectVoxelsFMeX.dproj" Targets="Make"/>
     </Target>
+    <Target Name="TriangleMeshProject">
+        <MSBuild Projects="TriangleMesh\TriangleMeshProject.dproj"/>
+    </Target>
+    <Target Name="TriangleMeshProject:Clean">
+        <MSBuild Projects="TriangleMesh\TriangleMeshProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TriangleMeshProject:Make">
+        <MSBuild Projects="TriangleMesh\TriangleMeshProject.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl;ProjectActor;ScrollExpl;ProjectVoxelsFMeX"/>
+        <CallTarget Targets="FMeXParticlesExpl;FMeXCubeExpl;ProjectLoader;ProjectGrapherDemo;SpineExpl;ProjectActor;ScrollExpl;ProjectVoxelsFMeX;TriangleMeshProject"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean;ProjectActor:Clean;ScrollExpl:Clean;ProjectVoxelsFMeX:Clean"/>
+        <CallTarget Targets="FMeXParticlesExpl:Clean;FMeXCubeExpl:Clean;ProjectLoader:Clean;ProjectGrapherDemo:Clean;SpineExpl:Clean;ProjectActor:Clean;ScrollExpl:Clean;ProjectVoxelsFMeX:Clean;TriangleMeshProject:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make;ProjectActor:Make;ScrollExpl:Make;ProjectVoxelsFMeX:Make"/>
+        <CallTarget Targets="FMeXParticlesExpl:Make;FMeXCubeExpl:Make;ProjectLoader:Make;ProjectGrapherDemo:Make;SpineExpl:Make;ProjectActor:Make;ScrollExpl:Make;ProjectVoxelsFMeX:Make;TriangleMeshProject:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

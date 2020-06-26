@@ -1,0 +1,67 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 640
+  ClientWidth = 929
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Viewport3D1: TViewport3D
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Camera = Camera1
+    Color = claSlategray
+    Position.X = 8.000000000000000000
+    Position.Y = 8.000000000000000000
+    Size.Width = 913.000000000000000000
+    Size.Height = 625.000000000000000000
+    Size.PlatformDefault = False
+    UsingDesignCamera = False
+    OnMouseWheel = Viewport3D1MouseWheel
+    object Camera1: TCamera
+      AngleOfView = 45.000000000000000000
+      Position.Z = -4.000000000000000000
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+    end
+    object Dummy1: TDummy
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+    end
+    object Light1: TLight
+      Color = claWhite
+      LightType = Directional
+      SpotCutOff = 60.000000000000000000
+      SpotExponent = 4.000000000000000000
+      Position.X = -10.749623298645020000
+      Position.Y = -6.947954654693604000
+      Position.Z = 1.000000000000000000
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+    end
+  end
+  object TextureMaterialSource1: TTextureMaterialSource
+    Left = 56
+    Top = 88
+  end
+  object LightMaterialSource1: TLightMaterialSource
+    Diffuse = claWhite
+    Ambient = xFF202020
+    Emissive = claNull
+    Specular = xFF606060
+    Shininess = 30
+    Left = 56
+    Top = 24
+  end
+  object Timer1: TTimer
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 48
+    Top = 224
+  end
+end
