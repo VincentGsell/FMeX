@@ -10,8 +10,6 @@ uses
   FMeX.Images in '..\..\Sources\FMeX.Images.pas',
   FMeX.Graph in '..\..\Sources\FMeX.Graph.pas',
   FMeX.Gx.Types in '..\..\Sources\FMeX.Gx.Types.pas',
-  Gx.Graph.Types in '..\..\..\Gx\Gx.Graph.Types.pas',
-  Gx.Types in '..\..\..\Gx\Gx.Types.pas',
   FMeX.Animation in '..\..\Sources\FMeX.Animation.pas';
 
 {$R *.res}

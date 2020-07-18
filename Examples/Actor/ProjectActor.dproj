@@ -306,8 +306,6 @@
             <Form>Form7</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="..\..\..\Gx\Gx.Graph.Types.pas"/>
-        <DCCReference Include="..\..\..\Gx\Gx.Types.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Types3D.ActorModels.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Types3D.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.FileFormat3D.MD2.pas"/>
@@ -1231,6 +1229,10 @@
                         <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
                         <Operation>64</Operation>
                     </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSResource">
                     <Platform Name="iOSDevice32">
@@ -1362,6 +1364,7 @@
                 <Platform value="Android64">True</Platform>
                 <Platform value="iOSDevice64">True</Platform>
                 <Platform value="iOSSimulator">True</Platform>
+                <Platform value="Linux64">False</Platform>
                 <Platform value="OSX64">True</Platform>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">True</Platform>

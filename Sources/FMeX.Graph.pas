@@ -56,6 +56,7 @@ End;
 TFMeXGraphFor2D = Class(TFMeXCustomGraph)
 Private
   FObjLst : TObjectList<TFMeXGraph3D>;
+    function GetObj(Index: Uint32): TFMeXGraph3D;
 Public
   constructor Create(AOwner: TComponent); override;
   destructor Destroy; Override;
@@ -63,6 +64,9 @@ Public
   function add(aCtrl : TFMeXGraph3D) : TFMeXGraph3D; Override;
 
   Procedure ProcessGraph; Override;
+
+  property Obj[Index : Uint32] : TFMeXGraph3D read GetObj;
+
 End;
 
 
@@ -116,6 +120,11 @@ destructor TFMeXGraphFor2D.Destroy;
 begin
   FObjLst.Free;
   inherited;
+end;
+
+function TFMeXGraphFor2D.GetObj(Index: Uint32): TFMeXGraph3D;
+begin
+  result := FObjLst[Index];
 end;
 
 procedure TFMeXGraphFor2D.ProcessGraph;

@@ -2,7 +2,10 @@ unit GS.ParticleEngine2D;
 
 interface
 
-Uses Classes, FMeX.Ticks, GS.Geometry.Direction;
+Uses Classes,
+     GS.System.CPU,
+     GS.System.Cadencer,
+     GS.Geometry.Direction;
 
 type
   TGSCustomParticleEngine2D = class;
@@ -325,7 +328,7 @@ procedure TGSCustomParticleEngine2D.ResetTimeEval;
 var i : integer;
 begin
   for i := 0 to ParticleCount-1 do
-    ParticleList[i].TimeStart:= TheCadencer.Tic;
+    ParticleList[i].TimeStart:= GSGlobalCadencer.Tic;
 end;
 
 procedure TGSCustomParticleEngine2D.SetParticle(Index: Cardinal;
@@ -353,8 +356,8 @@ begin
         //ParticleList[i].VelX:=(ParticleList[i].VelX+Object_ForceList[j].ForceVector.X);
         //ParticleList[i].VelY:=(ParticleList[i].VelY+Object_ForceList[j].ForceVector.Y);
 
-        ParticleList[i].VelX:=(ParticleList[i].VelX+ Object_ForceList[j].ForceVector.X * TheCadencer.TimeScaler);
-        ParticleList[i].VelY:=(ParticleList[i].VelY+ Object_ForceList[j].ForceVector.Y * TheCadencer.TimeScaler);
+        ParticleList[i].VelX:=(ParticleList[i].VelX+ Object_ForceList[j].ForceVector.X * GSGlobalCadencer.TimeScaler);
+        ParticleList[i].VelY:=(ParticleList[i].VelY+ Object_ForceList[j].ForceVector.Y * GSGlobalCadencer.TimeScaler);
 
         if ParticleList[i].VelX>FMaximalVelocity then
           ParticleList[i].VelX := FMaximalVelocity;
@@ -385,10 +388,10 @@ begin
     begin
       If ParticleList[i].TimeRelevantInMilliSec>0 then
       begin
-        ParticleList[i].X:=ParticleList[i].X+TheCadencer.TimeSliceValue(ParticleList[i].VelX);
-        ParticleList[i].Y:=ParticleList[i].Y+TheCadencer.TimeSliceValue(ParticleList[i].VelY);
+        ParticleList[i].X:=ParticleList[i].X+GSGlobalCadencer.TimeSliceValue(ParticleList[i].VelX);
+        ParticleList[i].Y:=ParticleList[i].Y+GSGlobalCadencer.TimeSliceValue(ParticleList[i].VelY);
 
-        ParticleList[i].TimeRelevantInMilliSec := ParticleList[i].TimeRelevantInMilliSec -  TheCadencer.DeltaTime; //  (m-ParticleList[i].TimeStart);
+        ParticleList[i].TimeRelevantInMilliSec := ParticleList[i].TimeRelevantInMilliSec -  GSGlobalCadencer.DeltaTime; //  (m-ParticleList[i].TimeStart);
       end;
     end;
   end
@@ -396,8 +399,8 @@ begin
   begin
     for i := 0 to ParticleCount-1 do
     begin
-        ParticleList[i].X:=ParticleList[i].X+TheCadencer.TimeSliceValue(ParticleList[i].VelX);
-        ParticleList[i].Y:=ParticleList[i].Y+TheCadencer.TimeSliceValue(ParticleList[i].VelY);
+        ParticleList[i].X:=ParticleList[i].X+GSGlobalCadencer.TimeSliceValue(ParticleList[i].VelX);
+        ParticleList[i].Y:=ParticleList[i].Y+GSGlobalCadencer.TimeSliceValue(ParticleList[i].VelY);
     end;
   end;
 
@@ -464,7 +467,7 @@ begin
   begin
     ParticleList[i].TimeToLiveInMilliSec:=ParticleDefaultDurationMilliSec;
     ParticleList[i].TimeRelevantInMilliSec:=ParticleDefaultDurationMilliSec;
-    ParticleList[i].TimeStart := TheCadencer.Tic;
+    ParticleList[i].TimeStart := GSGlobalCadencer.Tic;
   end;
 end;
 
@@ -545,7 +548,7 @@ begin
       ParticleList[i].X:=Position.X;
       ParticleList[i].Y:=Position.Y;
       ParticleList[i].TimeRelevantInMilliSec := ParticleList[i].TimeToLiveInMilliSec;
-      ParticleList[i].TimeStart:=TheCadencer.Tic;
+      ParticleList[i].TimeStart:=GSGlobalCadencer.Tic;
 
       vNorm(v,Random(BehaviourMaxVelocity)+1+(Random(1000)/1000));
 
@@ -604,7 +607,7 @@ begin
       Inc(ic);
       ParticleList[i].TimeToLiveInMilliSec:=ParticleDefaultDurationMilliSec;
       ParticleList[i].TimeRelevantInMilliSec:=ParticleDefaultDurationMilliSec;
-      ParticleList[i].TimeStart:=GetTickCount;
+      ParticleList[i].TimeStart:=gsGetTickCount;
       ParticleList[i].X:=Position.X;
       ParticleList[i].Y:=Position.Y;
       FinternalCount:=i;
@@ -692,8 +695,8 @@ var ix,iy : double;
     tvx,tvy : Double;
 begin
   //We firstly solve velocities vector parameter : Particule and line.
-  tvx := TheCadencer.TimeSliceValue(aParticle.VelX);
-  tvy := TheCadencer.TimeSliceValue(aParticle.VelY);
+  tvx := GSGlobalCadencer.TimeSliceValue(aParticle.VelX);
+  tvy := GSGlobalCadencer.TimeSliceValue(aParticle.VelY);
 
   if (tvx<>0) or (tvy<>0) then
   begin

@@ -227,13 +227,36 @@ begin
       C_T := TextureCoords[Triangle.TextureCoordIndex[0]][1] / Header.SkinHeight;
 }
 
+      tw := OBJ.texture.Width;
+      th := OBJ.texture.Height;
+
+      tw := MD2.header.SkinWidth;
+      th := MD2.header.SkinHeight;
+
+      f.u1:=MD2.Maps[MD2.Faces[i].ta].u; // / MD2.header.SkinWidth;
+      f.v1:=MD2.Maps[MD2.Faces[i].ta].v; // / MD2.header.SkinHeight;
+      f.u2:=MD2.Maps[MD2.Faces[i].tb].u; // / MD2.header.SkinWidth;
+      f.v2:=MD2.Maps[MD2.Faces[i].tb].v; // / MD2.header.SkinHeight;
+      f.u3:=MD2.Maps[MD2.Faces[i].tc].u; // / MD2.header.SkinWidth;
+      f.v3:=MD2.Maps[MD2.Faces[i].tc].v; // / MD2.header.SkinHeight;
+
+        f.uu1:= f.u1 / tw;
+        f.vv1:= f.v1 / th;
+        f.uu2:= f.u2 / tw;
+        f.vv2:= f.v2 / th;
+        f.uu3:= f.u3 / tw;
+        f.vv3:= f.v3 / th;
+
+
+{
       f.u1:=(MD2.Maps[MD2.Faces[i].ta].u*OBJ.texture.Width) div MD2.header.SkinWidth;
       f.v1:=(MD2.Maps[MD2.Faces[i].ta].v*OBJ.texture.Height) div MD2.header.SkinHeight;
       f.u2:=(MD2.Maps[MD2.Faces[i].tb].u*OBJ.texture.Width) div MD2.header.SkinWidth;
       f.v2:=(MD2.Maps[MD2.Faces[i].tb].v*OBJ.texture.Height) div MD2.header.SkinHeight;
       f.u3:=(MD2.Maps[MD2.Faces[i].tc].u*OBJ.texture.Width) div MD2.header.SkinWidth;
       f.v3:=(MD2.Maps[MD2.Faces[i].tc].v*OBJ.texture.Height) div MD2.header.SkinHeight;
-
+}
+{
       if (OBJ.texture.Width>0) And (OBJ.texture.Height>0) then
       begin
         tw := OBJ.texture.Width;
@@ -260,8 +283,8 @@ begin
         f.vv2:= f.v2 / th;
         f.uu3:= f.u3 / tw;
         f.vv3:= f.v3 / th;
-}
       end;
+}
 
    end;
  end;

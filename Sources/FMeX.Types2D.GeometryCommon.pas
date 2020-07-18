@@ -25,7 +25,7 @@ Interface
 
 uses
   System.SysUtils, System.Types, System.Classes,
-  GS.Direction,
+  GS.Geometry.Direction,
   clipper;
 
 Type

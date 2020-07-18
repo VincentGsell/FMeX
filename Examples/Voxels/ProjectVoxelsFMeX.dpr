@@ -4,8 +4,7 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   Voxels.fmain in 'Voxels.fmain.pas' {Form1},
-  FMeX.Types3D in '..\..\Sources\FMeX.Types3D.pas',
-  Voxels.Controler in 'Voxels.Controler.pas';
+  FMeX.Types3D in '..\..\Sources\FMeX.Types3D.pas';
 
 {$R *.res}
 

@@ -19,7 +19,6 @@ uses
   FMX.Controls.Presentation,
   FMX.StdCtrls,
   FMX.Layers3D,
-
   FMeX.Types3d,
   GS.Math.PerlinNoise,
   Voxels.Controler;
@@ -54,6 +53,7 @@ type
   public
 //   MyCursor : TCursor3D;
    mapvox : integer;
+   cursor : TCursor3D;
     { Public declarations }
 
 
@@ -137,19 +137,19 @@ begin
   end;
   l.MaterialSource := LightMaterialSource1;
   DummyRoot.AddObject(l);
-
-//  MyCursor.SetNewClient(l);
+//  cursor.SetNewClient(l);
+//  cursor.SwapMove(l);
 end;
 
 procedure TForm1.Form3DCreate(Sender: TObject);
 var F : TFMXObject;
 begin
-// for F in Children do
-//   F.SetDesign(True);
-// MyCursor := TCursor3D.Create(Nil);
-// MyCursor.Parent := Self;
-// MyCursor.OnTracking := Update;    // Link
  mapvox := 8;
+
+//Cannot work because cursor work well only with object at root. ?
+// cursor := TCursor3D.Create(Nil);
+// cursor.OnTracking := Update;    // Link
+
 end;
 
 procedure TForm1.Form3DMouseDown(Sender: TObject; Button: TMouseButton;

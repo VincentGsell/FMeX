@@ -17,7 +17,7 @@ Uses
   FMX.Graphics,
   FMX.Controls3D,
   FMX.MaterialSources,
-  Gs.Geometry.Direction;
+  GS.Geometry.Direction;
 
 Type
 

@@ -13,9 +13,7 @@ uses
   Spine in '..\..\Sources\ThirdParts\Spine.pas',
   FMeX.HUD in '..\..\Sources\FMeX.HUD.pas',
   FMeX.Graph in '..\..\Sources\FMeX.Graph.pas',
-  FMeX.Gx.Types in '..\..\Sources\FMeX.Gx.Types.pas',
-  Gx.Graph.Types in '..\..\..\Gx\Gx.Graph.Types.pas',
-  Gx.Types in '..\..\..\Gx\Gx.Types.pas';
+  FMeX.Gx.Types in '..\..\Sources\FMeX.Gx.Types.pas';
 
 {$R *.res}
 

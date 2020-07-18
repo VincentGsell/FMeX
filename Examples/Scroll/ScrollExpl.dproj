@@ -225,8 +225,6 @@
         <DCCReference Include="..\..\Sources\FMeX.Images.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Graph.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Gx.Types.pas"/>
-        <DCCReference Include="..\..\..\Gx\Gx.Graph.Types.pas"/>
-        <DCCReference Include="..\..\..\Gx\Gx.Types.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Animation.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -1104,6 +1102,10 @@
                         <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
                         <Operation>64</Operation>
                     </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSResource">
                     <Platform Name="iOSDevice32">
@@ -1234,6 +1236,7 @@
                 <Platform value="Android">False</Platform>
                 <Platform value="Android64">False</Platform>
                 <Platform value="iOSSimulator">False</Platform>
+                <Platform value="Linux64">False</Platform>
                 <Platform value="OSX64">True</Platform>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">True</Platform>

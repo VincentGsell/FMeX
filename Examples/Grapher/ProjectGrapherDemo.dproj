@@ -340,7 +340,6 @@
             <Form>Form23</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="..\..\..\GS\GS.Core\GS.Direction.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Types2D.GeometryCommon.pas"/>
         <DCCReference Include="..\..\Sources\ThirdParts\clipper.pas"/>
         <DCCReference Include="..\..\Sources\FMeX.Types3D.GeometryCommon.pas"/>
@@ -1210,6 +1209,10 @@
                         <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
                         <Operation>64</Operation>
                     </Platform>
+                    <Platform Name="iOSSimulator">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSResource">
                     <Platform Name="iOSDevice32">
@@ -1341,6 +1344,7 @@
                 <Platform value="Android64">True</Platform>
                 <Platform value="iOSDevice64">True</Platform>
                 <Platform value="iOSSimulator">True</Platform>
+                <Platform value="Linux64">False</Platform>
                 <Platform value="OSX64">True</Platform>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">True</Platform>
