@@ -79,6 +79,7 @@ Examples/FMeXExplProjectGroup.groupproj.local
 Examples/Loader/assets/otherCopyRighted/
 Examples/Loader/assets/scenes
 Examples/Particles/Android
+Examples/Particles/Android64
 Examples/Particles/IOSDevice64
 Examples/Particles/IOSSimulator
 Examples/Particles/OSX32

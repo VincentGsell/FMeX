@@ -9,7 +9,7 @@
     <Transaction>2019/05/28 11:07:01.000.014,E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.Gx.Types.pas=E:\DATA\2019_GRIDSYSTEM\Code\_FMeX\Sources\FMeX.eControl.Types.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
-		<NoProfile iOSSimulator="" Android="" Android64=""/>
+		<NoProfile iOSSimulator="" Android="R52N30SY0VL" Android64="R52N30SY0VL"/>
 		<PdevMac iOSSimulator="iPhone5" iOSDevice64=""/>
 	</ActiveMobileDevice>
 	<ProjectSortOrder AutoSort="0" SortType="0">
